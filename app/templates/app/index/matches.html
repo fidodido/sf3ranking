@@ -1,68 +1,70 @@
 {% extends "app/layout.html" %} {% block content %} {% load staticfiles i18n %}
 {% static "" as baseUrl %}
-    <table class="table">
-        <tr>
-            <th colspan="100">Todos los encuentros</th>
-        </tr>
-        <tr>
-            
-            <th>Desafiador</th>
-            <th>Rival</th>
-            <th>Ganador</th>
-            <th>Marcador</th>
-            <th>Tipo</th>
-            <th>Nivel</th>
-            <th>Fecha</th>
-            <th>Presencial</th>
-            <th>Replay</th>
-        </tr>
-        {% for result in results %}
-        <tr>
-            
-            <td>
-                <a href="#">
-                    <img class="rounded-circle" style="width: 30px; height: 30px;" src="{{ baseUrl }}/app/img/chars/{{result.challenging.main.url_image }}">
-                    {{ result.challenging.nickname }}
-                </a>
-            </td>
-            <td><a href="#">
-                <img class="rounded-circle" style="width: 30px; height: 30px;" src="{{ baseUrl }}/app/img/chars/{{result.rival.main.url_image }}">
-                {{ result.rival.nickname }}</a>
-            </td>
-            <td>
-                <a href="#">
-                    <img class="rounded-circle" style="width: 30px; height: 30px;" src="{{ baseUrl }}/app/img/chars/{{result.victory_player.main.url_image }}">
-                    {{ result.victory_player.nickname }}
-                </a>
-            </td>
-            <td>{{ result.challenging_score }} - {{ result.rival_score }}</td>
-            <th><span class="badge badge-primary">{{ result.mtype.name }}</span></th>
-            <th>{{ result.level }}</th>
-            <td>{{ result.created }}</td>
-            <td>{{ result.is_online }}</td>
-            <td>--></td>
-        </tr>
-        {% endfor %}                          
-    </table>
+<table class="table">
+    <tr>
+        <th colspan="100">Todos los encuentros</th>
+    </tr>
+    <tr>
 
-    <nav aria-label="Page navigation example">
-      <ul class="pagination">
-          {% if results.has_other_pages %}
-            {% if results.has_previous %}
-              <li class="page-item"><a class="page-link" data-page="{{ results.previous_page_number }}" href="{{ request.path }}?page={{ results.previous_page_number }}">Anterior</a></li>
-            {% endif %}
-            {% for i in results.paginator.page_range %}
-              {% if results.number == i %}
-                <li class="page-item active"><span class="page-link">{{ i }} <span class="sr-only">(current)</span></span></li>
-              {% else %}
-                <li class="page-item"><a class="page-link" data-page="{{ i }}" href="{{ request.path }}?page={{ i }}">{{ i }}</a></li>
-              {% endif %}
-            {% endfor %}
-            {% if results.has_next %}
-              <li class="page-item"><a class="page-link" data-page="{{ results.next_page_number }}" class="change-page" data-page="{{ results.next_page_number }}" href="{{ request.path }}?page={{ results.next_page_number }}">Siguiente</a></li>
-            {% endif %}
-          </ul>
-    {% endif %}
+        <th>Desafiador</th>
+        <th>Rival</th>
+        <th>Ganador</th>
+        <th>Marcador</th>
+        <th>Tipo</th>
+        <th>Torneo</th>
+        <th>Nivel</th>
+        <th>Fecha</th>
+        <th>Presencial</th>
+        <th>Replay</th>
+    </tr>
+    {% for result in results %}
+    <tr>
+
+        <td>
+            <a href="#">
+                <img class="rounded-circle" style="width: 30px; height: 30px;" src="{{ baseUrl }}/app/img/chars/{{result.challenging.main.url_image }}">
+                {{ result.challenging.nickname }}
+            </a>
+        </td>
+        <td><a href="#">
+            <img class="rounded-circle" style="width: 30px; height: 30px;" src="{{ baseUrl }}/app/img/chars/{{result.rival.main.url_image }}">
+        {{ result.rival.nickname }}</a>
+    </td>
+    <td>
+        <a href="#">
+            <img class="rounded-circle" style="width: 30px; height: 30px;" src="{{ baseUrl }}/app/img/chars/{{result.victory_player.main.url_image }}">
+            {{ result.victory_player.nickname }}
+        </a>
+    </td>
+    <td>{{ result.challenging_score }} - {{ result.rival_score }}</td>
+    <th><span class="badge badge-primary">{{ result.mtype.name }}</span></th>
+    <th>--</th>
+    <th>{{ result.level }}</th>
+    <td>{{ result.created }}</td>
+    <td>{{ result.is_online }}</td>
+    <td>--</td>
+</tr>
+{% endfor %}                          
+</table>
+
+<nav aria-label="Page navigation example">
+  <ul class="pagination">
+      {% if results.has_other_pages %}
+      {% if results.has_previous %}
+      <li class="page-item"><a class="page-link" data-page="{{ results.previous_page_number }}" href="{{ request.path }}?page={{ results.previous_page_number }}">Anterior</a></li>
+      {% endif %}
+      {% for i in results.paginator.page_range %}
+      {% if results.number == i %}
+      <li class="page-item active"><span class="page-link">{{ i }} <span class="sr-only">(current)</span></span></li>
+      {% else %}
+      <li class="page-item"><a class="page-link" data-page="{{ i }}" href="{{ request.path }}?page={{ i }}">{{ i }}</a></li>
+      {% endif %}
+      {% endfor %}
+      {% if results.has_next %}
+      <li class="page-item"><a class="page-link" data-page="{{ results.next_page_number }}" class="change-page" data-page="{{ results.next_page_number }}" href="{{ request.path }}?page={{ results.next_page_number }}">Siguiente</a></li>
+      {% endif %}
   </ul>
+  {% endif %}
+</ul>
 </nav>
 {% endblock %}

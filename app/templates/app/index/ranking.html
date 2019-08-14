@@ -1,25 +1,34 @@
 {% extends "app/layout.html" %} {% block content %} {% load staticfiles i18n %}
 {% static "" as baseUrl %}
-                <table class="table">
-                    <tr>
-                        <th>Player</th>
-                        <th>Main</th>
-                        <th>Ranking</th>
-                    </tr>
-                    {% for player in players %}
-                    <tr>
-                        <td>
-                            <a href="">
-                            <img class="rounded-circle" style="width: 30px; height: 30px;" src="{{ baseUrl }}/app/img/chars/{{player.main.url_image }}">
-                            {{ player.nickname }}</a>
-                        </td>
-                        <td>
-                            <img class="rounded-circle" style="width: 30px; height: 30px;" src="{{ baseUrl }}/app/img/chars/{{player.main.url_image }}">
-                            {{ player.main.name }}
-                        </td>
-                        <td>--</td>
-                    </tr>
-                        
-                    {% endfor %}             
-                </table> 
+
+
+{% if user.is_superuser %}
+    <button class="btn btn-success">Actualizar ranking</button>
+    <hr>
+    
+{% endif %}
+<table class="table">
+    <tr>
+        <th>#</th>
+        <th>Player</th>
+        <th>Main</th>
+        <th>Ranking</th>
+    </tr>
+    {% for player in players %}
+    <tr>
+        <td>{{ forloop.counter }}</td>
+        <td>
+            <a href="">
+                <img class="rounded-circle" style="width: 30px; height: 30px;" src="{{ baseUrl }}/app/img/chars/{{player.main.url_image }}">
+            {{ player.nickname }}</a>
+        </td>
+        <td>
+            <img class="rounded-circle" style="width: 30px; height: 30px;" src="{{ baseUrl }}/app/img/chars/{{player.main.url_image }}">
+            {{ player.main.name }}
+        </td>
+        <td>--</td>
+    </tr>
+
+    {% endfor %}             
+</table> 
 {% endblock %}
