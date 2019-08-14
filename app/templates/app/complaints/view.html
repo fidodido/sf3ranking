@@ -1,0 +1,49 @@
+{% extends "app/layout.html" %} {% block content %} {% load staticfiles i18n %}
+    {% load crispy_forms_tags %}
+    <form method="POST">
+        <div class="card" style="border: none">
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="mb-3">
+                            <div class="clearfix">
+                                <div class="float-left">
+                                    <h2>{{ complaint.title }}</h2>
+                                </div>
+                                <div class="float-right">
+                                    <a href="{% url 'complaints_new' %}" class="btn btn-primary">Denuncia aquí</a>
+                                </div>
+                            </div>
+                            <hr>
+                            <div class="row">
+                                <div class="col-md-11">
+                                    <p>{{ complaint.description }}</p>
+                                    Creada el {{ complaint.created }}
+                                    <div class="mb-3">
+                                        <a href="" class="badge badge-secondary">{{ complaint.category.name }}</a>
+                                        <a href="" class="badge badge-secondary">{{ complaint.comuna.name }}</a>
+                                    </div>
+                                    <div class="mb-3">
+                                        <a href="{% url 'complaints_agree' complaint.id %}"
+                                           class="btn btn-white border border-primary">
+                                            <i class="fa fa-thumbs-o-up" aria-hidden="true"></i> Me sumo a esta denuncia <span class="badge badge-success">45441</span>
+                                        </a>
+                                        <a href="{% url 'complaints_disagree' complaint.id %}"
+                                           class="btn btn-white border border-primary">
+                                            <i class="fa fa-thumbs-o-down" aria-hidden="true"></i> Estoy en contra  <span class="badge badge-danger">8484</span></a>
+                                    </div>
+                                    <hr>
+                                    <div class="mb-3">
+                                        <h3>20 comentarios</h3>
+                                        <img style="width: 100%"
+                                             src="https://legacy-help.pro.photo/wp-content/uploads/2012/03/fb-coments.png">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+{% endblock %}
