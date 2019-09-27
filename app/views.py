@@ -6,6 +6,7 @@ from django.contrib import messages
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from app.util import elo_native, elo_adapted
 import math    
+from django.db.models import Q
 
 MESSAGE_SUCCESS = "La acción ha sido exitosa."
 PAGINATE_DEFAULT = 10;
@@ -69,26 +70,31 @@ def new_match(request):
         'form': form
     })
 
-
-
 def index(request):
-
     return redirect('matches')
 
-    results = Result.objects.all().order_by('-id')[:10]
-    news = News.objects.all().order_by('-id')[:10]
-    players = Player.objects.all()
+def player(request, player_id):
 
-    template = 'app/index/index.html'
+    page = request.GET.get('page', 1)
+
+    player = Player.objects.get(pk=player_id)
+    results = Result.objects.filter(Q(challenging=player) | Q(rival=player)).order_by('-created')
+    paginator = Paginator(results, PAGINATE_DEFAULT)
+
+    try:
+        results = paginator.page(page)
+    except PageNotAnInteger:
+        results = paginator.page(1)
+    except EmptyPage:
+        results = paginator.page(paginator.num_pages)
+
+    template = 'app/index/player.html'
 
     return render(request, template, {
+        'player': player,
         'results': results,
-        'players': players,
-        'news': news,
-        'sort': sort,
-        'paginator': paginator
+        'paginator': paginator,
     })
-
 
 def matches(request):
 

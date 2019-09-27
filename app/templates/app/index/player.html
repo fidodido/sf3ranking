@@ -1,10 +1,30 @@
 {% extends "app/layout.html" %} {% block content %} {% load staticfiles i18n %}
 {% static "" as baseUrl %}
 
-{% if user.is_superuser %}
-    <a class="" href="{% url 'new_match' %}">+ Agregar resultado</a>
-{% endif %}
 
+<table class="table">
+	<thead>
+		<tr>
+			<th colspan="100">Detalles del jugador</th>
+		</tr>
+	</thead>
+	<tr>
+		<th>Nick</th>
+		<th>{{ player.nickname }}</th>
+	</tr>
+	<tr>
+		<th>Ranking</th>
+		<th><h4><span class="badge badge-secondary">{{ player.ranking }}</span></h4></th>
+	</tr>	
+	<tr>
+		<th>Main</th>
+		<th><img class="rounded-circle" style="width: 40px; height: 40px;" src="{{ baseUrl }}/app/img/chars/{{player.main.url_image }}"></th>
+	</tr>				
+</table>
+
+<div class="row row-table">
+  <div class="col-md-12 col-12">Peleas jugadas</div>
+</div>
 <div class="row row-table">
   <div class="col-md-2 col-2">Desafiante</div>
   <div class="col-md-2 col-2">Rival</div>
