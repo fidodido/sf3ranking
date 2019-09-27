@@ -40,7 +40,13 @@
     </div>
     <div class="col-md-2 col-4"><h4><span class="badge badge-secondary">{{ result.challenging_score }} - {{ result.rival_score }}</span></h4></div>
     <div class="col-md-2 col-4"><h4><span class="badge badge-primary">{{ result.mtype.name }}</span></h4></div>
-    <div class="col-md-1 col-0">--</div>
+    <div class="col-md-1 col-0">
+      {% if result.tournament %}
+        {{ result.tournament.name }}
+      {% else %}
+        --
+      {% endif %}
+    </div>
     <div class="col-md-1 col-0">{{ result.created }}</div>
     <div class="col-md-1 col-0">
       {% if result.replay_url %}
