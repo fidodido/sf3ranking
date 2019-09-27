@@ -43,7 +43,14 @@
     <div class="col-md-2"><span class="badge badge-primary">{{ result.mtype.name }}</span></div>
     <div class="col-md-1">--</div>
     <div class="col-md-1">{{ result.created }}</div>
-    <div class="col-md-1">--</div>
+    <div class="col-md-1">
+      {% if result.replay_url %}
+      <a href="{{ result.replay_url }}">Ver replay</a>
+      {% else %}
+      --
+      {% endif %}
+      
+    </div>
   </div>
 {% endfor %}
 
