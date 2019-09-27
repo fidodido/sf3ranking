@@ -1,51 +1,52 @@
 {% extends "app/layout.html" %} {% block content %} {% load staticfiles i18n %}
 {% static "" as baseUrl %}
-<table class="table">
-    <tr>
-        <th colspan="100">Todos los encuentros</th>
-    </tr>
-    <tr>
 
-        <th>Desafiador</th>
-        <th>Rival</th>
-        <th>Ganador</th>
-        <th>Marcador</th>
-        <th>Tipo</th>
-        <th>Torneo</th>
-        <th>Nivel</th>
-        <th>Fecha</th>
-        <th>Presencial</th>
-        <th>Replay</th>
-    </tr>
-    {% for result in results %}
-    <tr>
+{% if user.is_superuser %}
+    <a class="btn btn-danger" href="{% url 'new_match' %}">+ Agregar resultado</a>
+{% endif %}
 
-        <td>
-            <a href="#">
-                <img class="rounded-circle" style="width: 30px; height: 30px;" src="{{ baseUrl }}/app/img/chars/{{result.challenging.main.url_image }}">
-                {{ result.challenging.nickname }}
-            </a>
-        </td>
-        <td><a href="#">
+<div class="row row-table">
+  <div class="col-md-2">Desafiante</div>
+  <div class="col-md-2">Rival</div>
+  <div class="col-md-2">Resultado</div>
+  <div class="col-md-2">Tipo de pelea</div>
+  <div class="col-md-1">Torneo</div>
+  <div class="col-md-1">Fecha</div>
+  <div class="col-md-1">Replay</div>
+</div>
+{% for result in results %}
+<div class="row row-table">
+    <div class="col-md-2">
+      <a href="#">
+          <img class="rounded-circle" style="width: 30px; height: 30px;" src="{{ baseUrl }}/app/img/chars/{{result.challenging.main.url_image }}">
+          {{ result.challenging.nickname }}
+          <br>
+          {% if result.challenging == result.victory_player %}
+          <span style="color: green">+ {{ result.ranking_del|floatformat }}</span>
+          {% else %}
+          <span style="color: red">- {{ result.ranking_del|floatformat }}</span>
+          {% endif %}
+      </a>
+    </div>
+    <div class="col-md-2">
+        <a href="#">
             <img class="rounded-circle" style="width: 30px; height: 30px;" src="{{ baseUrl }}/app/img/chars/{{result.rival.main.url_image }}">
         {{ result.rival.nickname }}</a>
-    </td>
-    <td>
-        <a href="#">
-            <img class="rounded-circle" style="width: 30px; height: 30px;" src="{{ baseUrl }}/app/img/chars/{{result.victory_player.main.url_image }}">
-            {{ result.victory_player.nickname }}
-        </a>
-    </td>
-    <td>{{ result.challenging_score }} - {{ result.rival_score }}</td>
-    <th><span class="badge badge-primary">{{ result.mtype.name }}</span></th>
-    <th>--</th>
-    <th>{{ result.level }}</th>
-    <td>{{ result.created }}</td>
-    <td>{{ result.is_online }}</td>
-    <td>--</td>
-</tr>
-{% endfor %}                          
-</table>
+          <br>
+          {% if result.rival == result.victory_player %}
+          <span style="color: green">+ {{ result.ranking_del|floatformat  }}</span>
+          {% else %}
+          <span style="color: red">- {{ result.ranking_del|floatformat }}</span>
+          {% endif %}
+    </div>
+    <div class="col-md-2">{{ result.challenging_score }} - {{ result.rival_score }}</div>
+    <div class="col-md-2"><span class="badge badge-primary">{{ result.mtype.name }}</span></div>
+    <div class="col-md-1">--</div>
+    <div class="col-md-1">{{ result.created }}</div>
+    <div class="col-md-1">--</div>
+  </div>
+{% endfor %}
+
 
 <nav aria-label="Page navigation example">
   <ul class="pagination">

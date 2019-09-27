@@ -2,12 +2,9 @@ html {
     padding-bottom: 60px;
 }
 
-table a {
-	font-size: 12px;
-}
-
-table {
-	font-size: 12px;
+.row-table {
+	border-bottom: solid 1px #333;
+	padding: 15px;
 }
 .background-image {
 	background-image: url(https://3rdstrike.cl/assets/img/placeholder-big.jpg);

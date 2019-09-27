@@ -35,7 +35,7 @@ class Player(models.Model):
     mail = models.CharField(max_length=255, unique=True)
     phone = models.CharField(max_length=255, unique=True)
     fecha_nac = models.DateField()
-    ranking = models.IntegerField(default=0)
+    ranking = models.FloatField(default=0)
     main = models.ForeignKey(Char, on_delete=models.CASCADE, null=True, blank=True)
 
     def __str__(self):
@@ -48,24 +48,18 @@ class Tournament(models.Model):
     def __str__(self):
         return self.name
 
-class Results(models.Model):
+class Result(models.Model):
     mtype = models.ForeignKey(MatchType, on_delete=models.CASCADE)
-    online = models.BooleanField(default=0)
     challenging = models.ForeignKey(Player, on_delete=models.CASCADE, related_name="challenging")
     rival = models.ForeignKey(Player, on_delete=models.CASCADE, related_name="rival")
-    victory_player = models.ForeignKey(Player, on_delete=models.CASCADE)
+    victory_player = models.ForeignKey(Player, on_delete=models.CASCADE, related_name="victory_player", null=True, blank=True)
+    loser_player = models.ForeignKey(Player, on_delete=models.CASCADE, related_name="loser_player", null=True, blank=True)
     challenging_score = models.IntegerField(default=0)
     rival_score = models.IntegerField(default=0)
     tournament = models.ForeignKey(Tournament, on_delete=models.CASCADE, null=True, blank=True)
-    branch = models.ForeignKey(Branch, on_delete=models.CASCADE, null=True, blank=True)
-    level = models.IntegerField(default=0)
-    created = models.DateTimeField()
-
-    def is_online(self):
-        if self.online == True:
-            return 'Si'
-        else:
-            return 'No'
+    created = models.DateTimeField(auto_now=True)
+    replay_url = models.CharField(max_length=2000, null=True, blank=True)
+    ranking_del = models.FloatField(default=0)
 
     def __str__(self):
         return self.challenging.nickname + ' ' + ' v/s ' + self.rival.nickname

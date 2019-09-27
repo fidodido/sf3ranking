@@ -2,11 +2,12 @@ from django.conf.urls import url
 from app.views import index
 from app.views import matches
 from app.views import ranking
+from app.views import new_match
 
 urlpatterns = [
 
 	url(r'^$',
-		matches,
+		index,
 		name='index'
 	),
 
@@ -18,5 +19,10 @@ urlpatterns = [
 	url(r'^ranking$',
 		ranking,
 		name='ranking'
+	),
+
+	url(r'^new-match$',
+		new_match,
+		name='new_match'
 	)
 ]

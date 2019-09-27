@@ -19,7 +19,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # See https://docs.djangoproject.com/en/2.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'ijs!i^55y=_y0rf55&()m^)*44k%)9bmkaij6as7$uuyzvayyx'
+SECRET_KEY = 'ijs!i^55y=_y0rf55&()m^)*44k%)9bmkaij6as7$uuyzvayxx'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -52,7 +52,6 @@ REST_FRAMEWORK = {
 }
 
 MIDDLEWARE = [
-'debug_toolbar.middleware.DebugToolbarMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -88,8 +87,12 @@ WSGI_APPLICATION = 'soluciones.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'sf3_dev',
+        'USER': 'root',
+        'PASSWORD': '123',
+        'HOST': 'localhost',
+        'PORT': '3306'
     }
 }
 
@@ -132,7 +135,7 @@ STATIC_URL = '/static/'
 # habilitar ssl
 # secure proxy SSL header and secure cookies
 SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
-SESSION_COOKIE_SECURE = True
+SESSION_COOKIE_SECURE = False
 CSRF_COOKIE_SECURE = True
 
 # session expire at browser close

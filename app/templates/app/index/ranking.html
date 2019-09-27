@@ -2,16 +2,11 @@
 {% static "" as baseUrl %}
 
 
-{% if user.is_superuser %}
-    <button class="btn btn-success">Actualizar ranking</button>
-    <hr>
-    
-{% endif %}
+
 <table class="table">
     <tr>
         <th>#</th>
         <th>Player</th>
-        <th>Main</th>
         <th>Ranking</th>
     </tr>
     {% for player in players %}
@@ -22,11 +17,7 @@
                 <img class="rounded-circle" style="width: 30px; height: 30px;" src="{{ baseUrl }}/app/img/chars/{{player.main.url_image }}">
             {{ player.nickname }}</a>
         </td>
-        <td>
-            <img class="rounded-circle" style="width: 30px; height: 30px;" src="{{ baseUrl }}/app/img/chars/{{player.main.url_image }}">
-            {{ player.main.name }}
-        </td>
-        <td>--</td>
+        <td>{{ player.ranking }}</td>
     </tr>
 
     {% endfor %}             
