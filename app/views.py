@@ -9,7 +9,7 @@ import math
 from django.db.models import Q
 
 MESSAGE_SUCCESS = "La acción ha sido exitosa."
-PAGINATE_DEFAULT = 10;
+PAGINATE_DEFAULT = 25;
 
 SORT_DEFAULT = '-created'
 SORT_MORE_NEW = 'recientes'

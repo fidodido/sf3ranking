@@ -6,7 +6,7 @@
 {% endif %}
 
 <div class="row row-table">
-  <div class="col-md-2 col-2">Desafiante</div>
+  <div class="col-md-2 col-2">Retador</div>
   <div class="col-md-2 col-2">Rival</div>
   <div class="col-md-2 col-4">Resultado</div>
   <div class="col-md-2 col-4">Tipo de pelea</div>
@@ -20,8 +20,8 @@
           <img class="rounded-circle" style="width: 40px; height: 40px;" src="{{ baseUrl }}/app/img/chars/{{result.challenging.main.url_image }}">
           <br>
           <a href="{% url 'player' result.challenging.id %}">{{ result.challenging.nickname }}</a>
-          {% if result.challenging == result.victory_player %}
           <br>
+          {% if result.challenging == result.victory_player %}
           <span class="badge badge-success">+ {{ result.ranking_del|floatformat }}</span>
           {% else %}
           <span class="badge badge-danger">- {{ result.ranking_del|floatformat }}</span>
@@ -52,7 +52,7 @@
   </div>
 {% endfor %}
 
-
+<hr>
 <nav aria-label="Page navigation example">
   <ul class="pagination">
       {% if results.has_other_pages %}
