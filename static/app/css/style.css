@@ -1,0 +1,18 @@
+html {
+    padding-bottom: 60px;
+}
+
+.row-table {
+	border-bottom: solid 1px #333;
+	padding: 15px;
+}
+.background-image {
+	background-image: url(https://3rdstrike.cl/assets/img/placeholder-big.jpg);
+}
+
+.rounded-circle {
+	border: solid 1px brown;
+}
+body {
+    
+}

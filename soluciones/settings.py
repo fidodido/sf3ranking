@@ -22,9 +22,9 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = 'ijs!i^55y=_y0rf55&()m^)*44k%)9bmkaij6as7$uuyzvayxx'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = ['localhost', '127.0.0.1']
+ALLOWED_HOSTS = ['ranking.3rdstrike.cl', 'localhost', '127.0.0.1', '104.207.138.7']
 INTERNAL_IPS = ['127.0.0.1']
 # Application definition
 
@@ -87,7 +87,7 @@ WSGI_APPLICATION = 'soluciones.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.mysql',
+        'ENGINE': 'mysql.connector.django',
         'NAME': 'sf3_dev',
         'USER': 'root',
         'PASSWORD': '123',
@@ -131,15 +131,15 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/2.2/howto/static-files/
 
 STATIC_URL = '/static/'
-
+STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 # habilitar ssl
 # secure proxy SSL header and secure cookies
 SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
-SESSION_COOKIE_SECURE = False
+SESSION_COOKIE_SECURE =True
 CSRF_COOKIE_SECURE = True
 
 # session expire at browser close
-SESSION_EXPIRE_AT_BROWSER_CLOSE = True
+SESSION_EXPIRE_AT_BROWSER_CLOSE = False
 
 # wsgi scheme
 os.environ['wsgi.url_scheme'] = 'https'
