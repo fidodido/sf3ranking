@@ -4,6 +4,8 @@ from app.views import matches
 from app.views import ranking
 from app.views import new_match
 from app.views import player
+from app.views import delete_match
+
 urlpatterns = [
 
 	url(r'^$',
@@ -29,5 +31,10 @@ urlpatterns = [
 	url(r'^new-match$',
 		new_match,
 		name='new_match'
+	),
+
+	url(r'^delete-match/(?P<match_id>[a-zA-Z0-9-]+)$',
+		delete_match,
+		name='delete_match'
 	)
 ]

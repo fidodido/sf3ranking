@@ -17,7 +17,7 @@
                 <img class="rounded-circle" style="width: 30px; height: 30px;" src="{{ baseUrl }}/app/img/chars/{{player.main.url_image }}">
             {{ player.nickname }}</a>
         </td>
-        <td>{{ player.ranking }}</td>
+        <td>{{ player.ranking|floatformat }}</td>
     </tr>
 
     {% endfor %}             

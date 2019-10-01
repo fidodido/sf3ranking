@@ -22,9 +22,9 @@
           <a href="{% url 'player' result.challenging.id %}">{{ result.challenging.nickname }}</a>
           <br>
           {% if result.challenging == result.victory_player %}
-          <span class="badge badge-success">+ {{ result.ranking_del|floatformat }}</span>
+          <span class="badge badge-success">{{ result.ranking_del_challenging|floatformat }}</span>
           {% else %}
-          <span class="badge badge-danger">- {{ result.ranking_del|floatformat }}</span>
+          <span class="badge badge-danger">{{ result.ranking_del_challenging|floatformat }}</span>
           {% endif %}
     </div>
     <div class="col-md-2 col-2">
@@ -33,12 +33,15 @@
           <a href="{% url 'player' result.rival.id %}">{{ result.rival.nickname }}</a>
           <br>
           {% if result.rival == result.victory_player %}
-          <span class="badge badge-success">+ {{ result.ranking_del|floatformat }}</span>
+          <span class="badge badge-success">{{ result.ranking_del_rival|floatformat }}</span>
           {% else %}
-          <span class="badge badge-danger">- {{ result.ranking_del|floatformat }}</span>
+          <span class="badge badge-danger">{{ result.ranking_del_rival|floatformat }}</span>
           {% endif %}
     </div>
-    <div class="col-md-2 col-4"><h4><span class="badge badge-secondary">{{ result.challenging_score }} - {{ result.rival_score }}</span></h4></div>
+    <div class="col-md-2 col-4">
+      <h4><span class="badge badge-secondary">{{ result.challenging_score|default_if_none:"0" }} - {{ result.rival_score|default_if_none:"0" }}</span></h4>
+      <a href="#"><a href="{% url 'delete_match' result.id %}">eliminar</a></a>
+    </div>
     <div class="col-md-2 col-4"><h4><span class="badge badge-primary">{{ result.mtype.name }}</span></h4></div>
     <div class="col-md-1 col-0">
       {% if result.tournament %}

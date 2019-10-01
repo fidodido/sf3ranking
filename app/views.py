@@ -4,9 +4,10 @@ from app.models import Result, Player, News
 from app.forms import ResultForm
 from django.contrib import messages
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
-from app.util import elo_native, elo_adapted
+from app.util import elo_adapted
 import math    
 from django.db.models import Q
+from django.contrib.auth.decorators import login_required, permission_required
 
 MESSAGE_SUCCESS = "La acción ha sido exitosa."
 PAGINATE_DEFAULT = 25;
@@ -17,6 +18,7 @@ SORT_MORE_VOTED = 'votadas'
 
 SORT_VALUES = {'recientes': '-created', 'votadas': '-votes_agree'}
 
+@login_required
 def new_match(request):
     
     form = ResultForm(initial={
@@ -42,7 +44,8 @@ def new_match(request):
             if new_result.mtype.id == 2:
                 is_tournament = True
 
-            delta = elo_adapted(new_result.challenging.ranking, new_result.rival.ranking, new_result.challenging_score, new_result.rival_score, is_tournament)
+            changes = elo_adapted(new_result.challenging.ranking, new_result.rival.ranking, new_result.challenging_score, new_result.rival_score, is_tournament)
+            print(changes)
 
             if new_result.challenging_score > new_result.rival_score:
                 victory_player = new_result.challenging
@@ -51,24 +54,43 @@ def new_match(request):
                 victory_player = new_result.rival
                 loser_player = new_result.challenging
 
-            victory_player.ranking = victory_player.ranking + delta
-            victory_player.save()
+            new_result.challenging.ranking = new_result.challenging.ranking + changes[0]
+            new_result.challenging.save()
 
-            loser_player.ranking = loser_player.ranking - delta
-            loser_player.save()
+            new_result.rival.ranking =  new_result.rival.ranking +  changes[1]
+            new_result.rival.save()
 
             new_result.victory_player = victory_player
             new_result.loser_player = loser_player
-            new_result.ranking_del = delta
+            new_result.ranking_del_challenging = changes[0]
+            new_result.ranking_del_rival = changes[1]
             new_result.save()
 
             messages.add_message(request, messages.SUCCESS, MESSAGE_SUCCESS)
             return redirect('new_match')
 
-
     return render(request, template, {
         'form': form
     })
+
+
+@login_required
+def delete_match(request, match_id):
+
+    match = Result.objects.get(pk=match_id)
+
+    # actualizamos el ranking del retador.
+    match.challenging.ranking = match.challenging.ranking - match.ranking_del_challenging
+    match.challenging.save()
+
+    # actualizamos el rankign del rival.
+    match.rival.ranking = match.rival.ranking - match.ranking_del_rival
+    match.rival.save()
+
+    match.delete()
+
+    return redirect('matches')
+
 
 def index(request):
     return redirect('matches')
@@ -116,7 +138,6 @@ def matches(request):
         'results': results,
         'paginator': paginator,
     })
-
 
 def ranking(request):
 

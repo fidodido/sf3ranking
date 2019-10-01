@@ -22,8 +22,8 @@ class ResultForm(ModelForm):
             'mtype': forms.Select(attrs={'class': 'form-control'}),
             'challenging': forms.Select(attrs={'class': 'form-control'}),
             'rival': forms.Select(attrs={'class': 'form-control'}),
-            'challenging_score': forms.NumberInput(attrs={'id': 'id_title', 'class': 'form-control'}),
-            'rival_score': forms.NumberInput(attrs={'id': 'id_title', 'class': 'form-control'}),
+            'challenging_score': forms.NumberInput(attrs={'id': 'id_title', 'class': 'form-control', 'min': 0}),
+            'rival_score': forms.NumberInput(attrs={'id': 'id_title', 'class': 'form-control', 'min': 0}),
             'tournament': forms.Select(attrs={'class': 'form-control'}),
             'replay_url': forms.TextInput(attrs={'class': 'form-control'}),
         }

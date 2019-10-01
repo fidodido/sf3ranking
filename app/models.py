@@ -59,7 +59,8 @@ class Result(models.Model):
     tournament = models.ForeignKey(Tournament, on_delete=models.CASCADE, null=True, blank=True)
     created = models.DateTimeField(auto_now=True)
     replay_url = models.CharField(max_length=2000, null=True, blank=True)
-    ranking_del = models.FloatField(default=0)
+    ranking_del_challenging = models.FloatField(default=0)
+    ranking_del_rival = models.FloatField(default=0)
 
     def __str__(self):
         return self.challenging.nickname + ' ' + ' v/s ' + self.rival.nickname
