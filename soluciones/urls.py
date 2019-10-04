@@ -25,7 +25,7 @@ from rest_framework import routers
 # Wire up our API using automatic URL routing.
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
+    path('sf3admin/', admin.site.urls),
     url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework')),
     path('__debug__/', include(debug_toolbar.urls)),
     url(r'^', include('app.urls'))
