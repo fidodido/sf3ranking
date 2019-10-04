@@ -16,7 +16,7 @@
 </div>
 {% for result in results %}
 <div class="row row-table">
-    <div class="col-md-2 col-2">
+    <div class="col-md-2 col-4">
           <img class="rounded-circle" style="width: 40px; height: 40px;" src="{{ baseUrl }}/app/img/chars/{{result.challenging.main.url_image }}">
           <br>
           <a href="{% url 'player' result.challenging.id %}">{{ result.challenging.nickname }}</a>
@@ -27,7 +27,7 @@
           <span class="badge badge-danger">{{ result.ranking_del_challenging|floatformat }}</span>
           {% endif %}
     </div>
-    <div class="col-md-2 col-2">
+    <div class="col-md-2 col-4">
           <img class="rounded-circle" style="width: 40px; height: 40px;" src="{{ baseUrl }}/app/img/chars/{{result.rival.main.url_image }}">
           <br>
           <a href="{% url 'player' result.rival.id %}">{{ result.rival.nickname }}</a>
@@ -44,7 +44,7 @@
       <a href="#"><a href="{% url 'delete_match' result.id %}">eliminar</a></a>
       {% endif %}
     </div>
-    <div class="col-md-2 col-4">
+    <div class="col-md-2 col-0">
       {% if result.mtype.is_tournament %}
       <h4><span class="badge badge-info">{{ result.mtype.name }}</span></h4>
       {% else %}
