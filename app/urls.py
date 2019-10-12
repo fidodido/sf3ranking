@@ -1,40 +1,46 @@
 from django.conf.urls import url
-from app.views import index
-from app.views import matches
-from app.views import ranking
-from app.views import new_match
-from app.views import player
-from app.views import delete_match
+from app.views.index import index
+from app.views.league import index as league_index
+from app.views.league import create_new_result
+from app.views.league import delete_result
+from app.views.league import player
+from app.views.league import ranking
+from app.views.league import results
 
 urlpatterns = [
 
-	url(r'^$',
-		index,
-		name='index'
-	),
+    url(r'^$',
+        index,
+        name='index'
+        ),
 
-	url(r'^matches$',
-		matches,
-		name='matches'
-	),
+    url(r'^league/(?P<league_slug>[a-zA-Z0-9-]+)/$',
+        league_index,
+        name='league_index'
+        ),
 
-	url(r'^ranking$',
-		ranking,
-		name='ranking'
-	),
+    url(r'^league/(?P<league_slug>[a-zA-Z0-9-]+)/create-new-result$',
+        create_new_result,
+        name='league_create_new_result'
+        ),
 
-	url(r'^player/(?P<player_id>[a-zA-Z0-9-]+)$',
-		player,
-		name='player'
-	),
+    url(r'^league/(?P<league_slug>[a-zA-Z0-9-]+)/delete-result/(?P<result_id>[a-zA-Z0-9-]+)$',
+        delete_result,
+        name='league_delete_result'
+        ),
 
-	url(r'^new-match$',
-		new_match,
-		name='new_match'
-	),
+    url(r'^league/(?P<league_slug>[a-zA-Z0-9-]+)/results$',
+        results,
+        name='league_results'
+        ),
 
-	url(r'^delete-match/(?P<match_id>[a-zA-Z0-9-]+)$',
-		delete_match,
-		name='delete_match'
-	)
+    url(r'^league/(?P<league_slug>[a-zA-Z0-9-]+)/ranking$',
+        ranking,
+        name='league_ranking'
+        ),
+
+    url(r'^league/(?P<league_slug>[a-zA-Z0-9-]+)/player/(?P<player_id>[a-zA-Z0-9-]+)$',
+        player,
+        name='league_player'
+        )
 ]

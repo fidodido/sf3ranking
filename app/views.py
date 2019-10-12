@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from django.shortcuts import render, redirect
-from app.models import Result, Player, News
+from app.models import Result, Player, League
 from app.forms import ResultForm
 from django.contrib import messages
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
@@ -17,6 +17,7 @@ SORT_MORE_NEW = 'recientes'
 SORT_MORE_VOTED = 'votadas'
 
 SORT_VALUES = {'recientes': '-created', 'votadas': '-votes_agree'}
+
 
 @login_required
 def new_match(request):
@@ -93,7 +94,14 @@ def delete_match(request, match_id):
 
 
 def index(request):
-    return redirect('matches')
+
+    leagues = League.objects.all()
+
+    template = 'app/index/index.html'
+
+    return render(request, template, {
+        'leagues': leagues
+    })
 
 def player(request, player_id):
 

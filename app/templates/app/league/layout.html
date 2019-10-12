@@ -1,0 +1,52 @@
+{% extends "app/layout.html" %} {% block content %} {% load staticfiles i18n %}
+    {% static "" as baseUrl %}
+    <div class="row">
+        <div class="col-md-2">
+
+
+            <ul class="nav flex-column">
+                <li class="nav-item active">
+                    <a class="nav-link active" href="{% url 'league_results' league.slug %}">Últimos resultados</a>
+                </li>
+                <li class="nav-item active">
+                    <a class="nav-link active" href="{% url 'league_ranking' league.slug %}">Ranking / Players</a>
+                </li>
+                <li class="nav-item active">
+                    <a class="nav-link active" href="{% url 'league_ranking' league.slug %}">Torneos</a>
+                </li>
+            </ul>
+
+
+        </div>
+        <div class="col-md-10">
+            {% block content_project %}{% endblock %}
+        </div>
+    </div>
+
+    <!-- Create Modal -->
+    <div class="modal fade" id="modal-create-result" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+         aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title" id="myModalLabel">Create</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                            aria-hidden="true">&times;</span></button>
+                </div>
+                <form action="{% url 'league_create_new_result' league.slug %}" method="POST"
+                      enctype="multipart/form-data" class="form-horizontal" novalidate>
+                    <div class="modal-body">
+                        <fieldset>
+                            {% csrf_token %}
+                            {{ form_new_result }}
+                        </fieldset>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-primary">Save</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+{% endblock %}

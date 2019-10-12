@@ -1,0 +1,36 @@
+{% extends "app/league/layout.html" %} {% block content_project %} {% load staticfiles i18n %}
+    {% static "" as baseUrl %}
+
+
+    <div class="clearfix">
+        <div class="pull-left">
+            <h4>Ranking / Players</h4>
+        </div>
+        <div class="pull-right">
+            {% if user.is_superuser %}
+                <a class="btn btn-danger btn-sm" href="#modal-create-result" data-toggle="modal">+ Agregar player</a>
+            {% endif %}
+        </div>
+    </div>
+
+    <table class="table">
+        <tr>
+            <th>#</th>
+            <th>Player</th>
+            <th>Ranking</th>
+        </tr>
+        {% for player in players %}
+            <tr>
+                <td>{{ forloop.counter }}</td>
+                <td>
+                    <a href="{% url 'league_player' league.slug player.id %}">
+                        <img class="rounded-circle" style="width: 30px; height: 30px;"
+                             src="{{ baseUrl }}/app/img/chars/{{ player.main.url_image }}">
+                        {{ player.nickname }}</a>
+                </td>
+                <td>{{ player.ranking|floatformat }}</td>
+            </tr>
+
+        {% endfor %}
+    </table>
+{% endblock %}

@@ -35,75 +35,21 @@
     {% endif %}
 </div>
 
-<nav class="navbar navbar-expand-md navbar-dark bg-dark mb-4 background-image">
-    <div class="container ">
-        <a href="{% url 'index' %}"><img src="https://3rdstrike.cl/assets/img/logo.png" class="img-circle zoombtn animated rotateIn"></a>
-        
-    </div>
+
+<nav class="navbar navbar-expand-lg navbar-dark fixed-top">
+    <a class="navbar-brand" href="{% url 'index' %}">
+        Home
+    </a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+
 </nav>
 
 <main role="main">
-    <div class="container" style="background: #222; padding-top: 15px; padding-bottom: 15px">
-        <div class="row">
-            <div class="col-md-12" style="">
-                    <ul class="nav nav-tabs">
-                      <li class="nav-item">
-                        <a class="nav-link {% if request.path == "/matches" %} active {% endif %}" href="{% url 'matches' %}">Últimos enfrentamientos</a>
-                      </li>
-                      <li class="nav-item">
-                        <a class="nav-link {% if request.path == "/ranking" %} active {% endif %}"" href="{% url 'ranking' %}">Ranking de jugadores</a>
-                      </li>
-                    </ul>
-
-                    <div style="margin-top: 30px;">
-                        {% block content %}{% endblock %}
-                    </div>
-
-                
-            </div>
-        </div>
-    </div>
-
-    <hr>
-
-    <div class="container-fluid" style="background: #222; padding-top: 15px;">
-
-        <div class="row">
-
-
-            <h3 class="title">
-                <a href="https://3rdstrike.cl">
-                    <p style="font-size:1rem;font-weight:300"></p>
-                </a>
-            </h3>
-
-            <hr class="hr-line">
-
-                <h3 class="title" style="font-size:30px;">
-
-                    <a class="social-btn" href="http://twitter.com/3rdstrikecl" target="_blank" rel="noopener noreferrer">
-                        <i class="fa fa-fw fa-twitter-square"></i>
-                    </a>
-                    <a class="social-btn" href="http://facebook.com/groups/3rdstrikecl" target="_blank" rel="noopener noreferrer">
-                        <i class="fa fa-fw fa-facebook-square"></i>
-                    </a>
-
-                    <a class="social-btn" href="http://instagram.com/3rdstrike_cl" target="_blank" rel="noopener noreferrer">
-                        <i class="fa fa-fw fa-instagram"></i>
-                    </a>
-
-                    <a class="social-btn" href="http://steamcommunity.com/groups/3rdstrikecl" target="_blank" rel="noopener noreferrer">
-                        <i class="fa fa-fw fa-steam-square"></i>
-                    </a>
-
-                    <a class="social-btn" href="https://youtube.com/channel/UCJ1xtgAxWu1_QmU4y44VeBQ" target="_blank" rel="noopener noreferrer">
-                        <i class="fa fa-fw fa-youtube"></i>
-                    </a>
-
-                </h3>
-
-            <hr class="hr-line">
-        </div>
+    <div class="container-fluid" >
+        {% block content %}{% endblock %}
     </div>
 </main>
 </body>
