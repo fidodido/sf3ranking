@@ -74,7 +74,6 @@ def new_match(request):
         'form': form
     })
 
-
 @login_required
 def delete_match(request, match_id):
 
@@ -91,7 +90,6 @@ def delete_match(request, match_id):
     match.delete()
 
     return redirect('matches')
-
 
 def index(request):
 

@@ -2,6 +2,22 @@ html {
     padding-bottom: 60px;
 }
 
+.input-error {
+	color: yellow;
+	font-size: 11px;
+	display: block;
+}
+
+.dark-card {
+	background: rgb(34, 34, 34); 
+}
+
+#container {
+	
+	padding-top: 15px; 
+	padding-bottom: 15px; --darkreader-inline-bgimage: initial; --darkreader-inline-bgcolor:#202224;
+}
+
 .row-table {
 	border-bottom: solid 1px #333;
 	padding: 15px;

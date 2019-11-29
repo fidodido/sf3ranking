@@ -17,4 +17,12 @@ $(document).ready(function () {
         });
     }
 
+    $('#save-new-result').click(function(e) {
+        alert("sdf");
+    });
+
+    $("#save-new-result").on('click', function(e) {
+        e.preventDefault();
+        console.log('oka');
+    });
 });

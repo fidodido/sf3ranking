@@ -6,28 +6,19 @@ from django.utils.text import slugify
 
 
 class PlayerForm(ModelForm):
-
     class Meta:
-        model: Player
+        model = Player
         labels = {
-            'mtype': 'Tipo de pelea',
-            'challenging': 'Retador',
-            'rival': 'Rival',
-            'challenging_score': 'Marcador retador',
-            'rival_score': 'Marcador rival',
-            'tournament': 'Seleccionar torneo',
-            'replay_url': 'URL Replay'
+            'nickname': 'Nick',
+            'main': 'Main',
+            'ranking': 'Ranking inicial'
         }
-        fields = ['league', 'mtype', 'challenging', 'rival', 'challenging_score', 'rival_score', 'tournament', 'replay_url']
+        fields = ['nickname', 'ranking', 'main', 'league']
         widgets = {
             'league': forms.HiddenInput(),
-            'mtype': forms.Select(attrs={'class': 'form-control'}),
-            'challenging': forms.Select(attrs={'class': 'form-control'}),
-            'rival': forms.Select(attrs={'class': 'form-control'}),
-            'challenging_score': forms.NumberInput(attrs={'id': 'id_title', 'class': 'form-control', 'min': 0}),
-            'rival_score': forms.NumberInput(attrs={'id': 'id_title', 'class': 'form-control', 'min': 0}),
-            'tournament': forms.Select(attrs={'class': 'form-control'}),
-            'replay_url': forms.TextInput(attrs={'class': 'form-control'}),
+            'main': forms.Select(attrs={'class': 'form-control'}),
+            'nickname': forms.TextInput(attrs={'class': 'form-control'}),
+            'ranking': forms.NumberInput(attrs={'id': 'id_ranking', 'class': 'form-control', 'min': 0}),
         }
 
 class ResultForm(ModelForm):

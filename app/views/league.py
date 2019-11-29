@@ -1,13 +1,14 @@
 from django.shortcuts import render
 from django.shortcuts import render, redirect
 from app.models import Result, Player, League
-from app.forms import ResultForm
+from app.forms import ResultForm, PlayerForm
 from django.contrib import messages
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from app.util import elo_adapted
 import math
 from django.db.models import Q
 from django.contrib.auth.decorators import login_required, permission_required
+from django.http import JsonResponse
 
 MESSAGE_SUCCESS = "La acción ha sido exitosa."
 PAGINATE_DEFAULT = 25;
@@ -61,7 +62,13 @@ def ranking(request, league_slug):
     players = Player.objects.filter(league=league).order_by('-ranking')
     template = 'app/league/ranking.html'
 
+    form = PlayerForm(initial={
+        'ranking': 1000,
+        'league': league.id
+    })
+
     return render(request, template, {
+        'form': form,
         'league': league,
         'players': players
     })
@@ -93,9 +100,30 @@ def player(request, league_slug, player_id):
 
 
 @login_required
+def create_new_player(request, league_slug):
+
+    league = League.objects.get(slug=league_slug)
+    success = False
+
+    if request.method == 'POST':
+
+        form = PlayerForm(request.POST)
+
+        if form.is_valid():
+
+            form.save()
+            success = True
+
+    return JsonResponse({
+        'success': success,
+        'errors': dict(form.errors.items())
+    })
+
+@login_required
 def create_new_result(request, league_slug):
 
     league = League.objects.get(slug=league_slug)
+    success = False
 
     if request.method == 'POST':
 
@@ -135,13 +163,17 @@ def create_new_result(request, league_slug):
             new_result.ranking_del_rival = changes[1]
             new_result.save()
 
-            messages.add_message(request, messages.SUCCESS, MESSAGE_SUCCESS)
-            return redirect('league_index', league_slug)
+            success = True
 
+    return JsonResponse({
+        'success': success,
+        'errors': dict(form.errors.items())
+    })
 
 @login_required
-def delete_result(request, match_id):
-    match = Result.objects.get(pk=match_id)
+def delete_result(request, league_slug, result_id):
+
+    match = Result.objects.get(pk=result_id)
 
     # actualizamos el ranking del retador.
     match.challenging.ranking = match.challenging.ranking - match.ranking_del_challenging
@@ -153,4 +185,4 @@ def delete_result(request, match_id):
 
     match.delete()
 
-    return redirect('matches')
+    return redirect('league_index', league_slug=league_slug)
