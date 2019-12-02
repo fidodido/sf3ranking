@@ -1,0 +1,28 @@
+{% extends "app/league/layout.html" %} {% block content_project %} {% load staticfiles i18n %}
+    {% static "" as baseUrl %}
+
+
+    <div class="clearfix">
+        <div class="pull-right">
+            {% if user.is_superuser %}
+                <a class="btn btn-danger btn-sm" href="#modal-new-player" data-toggle="modal">+ Agregar nuevo torneo</a>
+            {% endif %}
+        </div>
+    </div>
+
+    <hr>
+    
+    <table class="table">
+        <tr>
+            <th>Nombre Torneo</th>
+            <th>Campeón</th>
+        </tr>
+        {% for tournament in tournaments %}
+            <tr>
+                <td>{{ tournament.name }}</td>
+                <td>--</td>
+            </tr>
+        {% endfor %}        
+    </table>
+
+{% endblock %}

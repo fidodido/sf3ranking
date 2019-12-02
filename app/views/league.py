@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from django.shortcuts import render, redirect
-from app.models import Result, Player, League
+from app.models import Result, Player, League, Tournament
 from app.forms import ResultForm, PlayerForm
 from django.contrib import messages
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
@@ -23,6 +23,35 @@ SORT_VALUES = {'recientes': '-created', 'votadas': '-votes_agree'}
 def index(request, league_slug):
     return redirect('league_results', league_slug)
 
+def tournaments(request, league_slug):
+
+    page = request.GET.get('page', 1)
+    league = League.objects.get(slug=league_slug)
+
+    form_new_result = ResultForm(initial={
+        'league': league.id,
+        'victory_player': 1,
+        'loser_player': 2
+    })
+
+    tournaments = Tournament.objects.filter(league=league)
+    paginator = Paginator(tournaments, PAGINATE_DEFAULT)
+
+    try:
+        tournaments = paginator.page(page)
+    except PageNotAnInteger:
+        tournaments = paginator.page(1)
+    except EmptyPage:
+        tournaments = paginator.page(paginator.num_pages)
+
+    template = 'app/league/tournaments.html'
+
+    return render(request, template, {
+        'form_new_result': form_new_result,
+        'league': league,
+        'tournaments': tournaments,
+        'paginator': paginator
+    })
 
 def results(request, league_slug):
 

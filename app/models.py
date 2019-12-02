@@ -54,6 +54,12 @@ class Player(models.Model):
     main = models.ForeignKey(Char, on_delete=models.CASCADE)
     league = models.ForeignKey(League, on_delete=models.CASCADE, default=1)
 
+    def victories(self):
+        return Result.objects.filter(victory_player=self).count()
+
+    def loses(self):
+        return Result.objects.filter(loser_player=self).count()
+
     def __str__(self):
         return self.nickname
 

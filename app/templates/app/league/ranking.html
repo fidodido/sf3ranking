@@ -5,7 +5,7 @@
     <div class="clearfix">
         <div class="pull-right">
             {% if user.is_superuser %}
-                <a class="btn btn-danger btn-sm" href="#modal-new-player" data-toggle="modal">+ Agregar player</a>
+                <a class="btn btn-danger btn-sm" href="#modal-new-player" data-toggle="modal">+ Agregar nuevo player</a>
             {% endif %}
         </div>
     </div>
@@ -17,6 +17,9 @@
             <th>#</th>
             <th>Player</th>
             <th>Ranking</th>
+            <th>Victorias</th>
+            <th>Derrotas</th>
+            <th>Rango</th>
         </tr>
         {% for player in players %}
             <tr>
@@ -28,6 +31,28 @@
                         {{ player.nickname }}</a>
                 </td>
                 <td>{{ player.ranking|floatformat }}</td>
+                <td>{{ player.victories }}</td>
+                <td>{{ player.loses }}</td>
+                <td>
+                    {% if forloop.counter is 1 %}
+                    GRAN MAESTRO
+                    {% endif %}
+                    {% if forloop.counter is 2 %}
+                    GRAN PATRIARCA
+                    {% endif %}
+                    {% if forloop.counter is 3 %}
+                    DIOS DRAGÓN
+                    {% endif %}
+                    {% if forloop.counter is 4 %}
+                    APRENDIZ DIVINO
+                    {% endif %}
+                    {% if forloop.counter is 5 %}
+                    EL TALENTOSO
+                    {% endif %}
+                    {% if forloop.counter > 5 %}
+                    CHIC@ NORMAL
+                    {% endif %}                    
+                </td>
             </tr>
 
         {% endfor %}

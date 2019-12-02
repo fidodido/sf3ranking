@@ -7,6 +7,7 @@ from app.views.league import delete_result
 from app.views.league import player
 from app.views.league import ranking
 from app.views.league import results
+from app.views.league import tournaments
 
 urlpatterns = [
 
@@ -38,6 +39,11 @@ urlpatterns = [
     url(r'^league/(?P<league_slug>[a-zA-Z0-9-]+)/results$',
         results,
         name='league_results'
+        ),
+
+    url(r'^league/(?P<league_slug>[a-zA-Z0-9-]+)/tournaments$',
+        tournaments,
+        name='league_tournaments'
         ),
 
     url(r'^league/(?P<league_slug>[a-zA-Z0-9-]+)/ranking$',

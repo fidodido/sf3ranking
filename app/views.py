@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from django.shortcuts import render, redirect
-from app.models import Result, Player, League
+from app.models import Tournament, Result, Player, League
 from app.forms import ResultForm
 from django.contrib import messages
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
@@ -154,3 +154,4 @@ def ranking(request):
     return render(request, template, {
         'players': players
     })
+
