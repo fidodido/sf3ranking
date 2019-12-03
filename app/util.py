@@ -82,11 +82,13 @@ def elo_native(elo_player_1, elo_player_2, score_player_1, score_player_2):
 	return [elo_player_1+change_1,elo_player_2-change_1]
 """
 
+
 #Funcion de elo modificada. Aca se debe especificar si se trata o no de un enfrentamiento de torneo. Por defecto es True.
-#Se podria poner que automaticamente detecte si es un enfrentamiento cuando se trata de Ft10 o Ft20, conversable.
 def elo_adapted(elo_player_1, elo_player_2, score_player_1, score_player_2, is_tournament=True):
 	#Ftx y K-value siguen las mismas reglas que para elo_native
 	ftx=max(score_player_1, score_player_2)
+	#i1 es 1 si gano el player 1 y 0 si gano el player 2. Es util y se usa para los puntos extra
+	i1=min(1,max(score_player_1-score_player_2,0))
 	if ftx<3:
 		kval=50
 	elif ftx<4:
@@ -94,26 +96,33 @@ def elo_adapted(elo_player_1, elo_player_2, score_player_1, score_player_2, is_t
 	elif ftx<6:
 		kval=70
 	elif ftx<9:
-		kval=80
+		kval=75
 	elif ftx<14:
-		kval=90
+		kval=80
 	else:
-		kval=100
+		kval=85
 	#Si no es torneo, res_1 funciona como en elo_native, de acuerdo a el porcentaje de matches ganados.
-	#Si es torneo, una victoria cuenta como res_1=1 independiente del resultado.
+	#Si es torneo, una victoria cuenta como res_1=1 independiente del resultado. Si gana 10-4 se considera 11-4 para darle mas prioridad al ganador
 	if is_tournament:
-		res_1=min(max(score_player_1-score_player_2,0),1)
+		res_1=1.0*i1
 	else:
-		res_1=score_player_1*1.0/(score_player_1+score_player_2)
+		res_1=(score_player_1+i1)*1.0/(score_player_1+score_player_2+1)
 	#Expect y change siguen las mismas reglas que para elo_native
 	expect_1=1.0/(1.0+10**((elo_player_2-elo_player_1)/400.0))
 	change_1=kval*(res_1-expect_1)
 	change_2=-change_1
-	#Si es torneo, el ganador suma FtX ELO. Asi, los torneos aumentan levemente el ELO global y los desafios solo redistribuyen.
+	#Si es torneo, el ganador suma FtX ELO. Asi, los torneos aumentan levemente el ELO global. Los desafios tambien pero menos
 	if is_tournament:
-		change_1+=ftx*min(1,max(score_player_1-score_player_2,0))
-		change_2+=ftx*min(1,max(score_player_2-score_player_1,0))
+		ch=kval/10.0-1
+		change_1+=ch*i1
+		change_2+=ch*(1-i1)
+	else:
+		ch=kval/20.0-1
+		change_1+=ch*(1-min(1,max(0,(elo_player_1-elo_player_2)/300.0)))*i1
+		change_2+=ch*(1-min(1,max(0,(elo_player_2-elo_player_1)/300.0)))*(1-i1)
 	return [change_1,change_2]
+
+
 
 """
 

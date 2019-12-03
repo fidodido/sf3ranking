@@ -60,6 +60,9 @@ class Player(models.Model):
     def loses(self):
         return Result.objects.filter(loser_player=self).count()
 
+    def played(self):
+        return self.loses() + self.victories()
+
     def __str__(self):
         return self.nickname
 

@@ -19,6 +19,7 @@
             <th>Ranking</th>
             <th>Victorias</th>
             <th>Derrotas</th>
+            <th>Jugadas</th>
             <th>Rango</th>
         </tr>
         {% for player in players %}
@@ -33,6 +34,7 @@
                 <td>{{ player.ranking|floatformat }}</td>
                 <td>{{ player.victories }}</td>
                 <td>{{ player.loses }}</td>
+                <td>{{  player.played }}</td>
                 <td>
                     {% if forloop.counter is 1 %}
                     GRAN MAESTRO
