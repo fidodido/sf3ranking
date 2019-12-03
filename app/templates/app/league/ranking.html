@@ -11,7 +11,7 @@
     </div>
 
     <hr>
-    
+
     <table class="table">
         <tr>
             <th>#</th>
@@ -20,7 +20,8 @@
             <th>Victorias</th>
             <th>Derrotas</th>
             <th>Jugadas</th>
-            <th>Rango</th>
+            <th>Título</th>
+            <th>Grado</th>
         </tr>
         {% for player in players %}
             <tr>
@@ -34,26 +35,70 @@
                 <td>{{ player.ranking|floatformat }}</td>
                 <td>{{ player.victories }}</td>
                 <td>{{ player.loses }}</td>
-                <td>{{  player.played }}</td>
+                <td>{{ player.played }}</td>
                 <td>
                     {% if forloop.counter is 1 %}
-                    GRAN MAESTRO
+                        GRAN MAESTRO
                     {% endif %}
                     {% if forloop.counter is 2 %}
-                    GRAN PATRIARCA
+                        GRAN PATRIARCA
                     {% endif %}
                     {% if forloop.counter is 3 %}
-                    DIOS DRAGÓN
+                        DIOS DRAGÓN
                     {% endif %}
                     {% if forloop.counter is 4 %}
-                    APRENDIZ DIVINO
+                        APRENDIZ DIVINO
                     {% endif %}
                     {% if forloop.counter is 5 %}
-                    EL TALENTOSO
+                        EL TALENTOSO
                     {% endif %}
                     {% if forloop.counter > 5 %}
-                    CHIC@ NORMAL
-                    {% endif %}                    
+                        CHIC@ NORMAL
+                    {% endif %}
+                </td>
+                <td>
+                    {% if forloop.counter is 1 %}
+                        <img src="{{ baseUrl }}/app/img/ranking/MSF.png">
+                    {% endif %}
+                    {% if forloop.counter is 2 %}
+                        <img src="{{ baseUrl }}/app/img/ranking/XS.png">
+                    {% endif %}
+                    {% if forloop.counter is 3 %}
+                        <img src="{{ baseUrl }}/app/img/ranking/SS.png">
+                    {% endif %}
+                    {% if forloop.counter == 4 or forloop.counter == 5 %}
+                        <img src="{{ baseUrl }}/app/img/ranking/S.png">
+                    {% endif %}
+                    {% if forloop.counter >= 6 and forloop.counter <= 7 %}
+                        <img src="{{ baseUrl }}/app/img/ranking/A+.png">
+                    {% endif %}
+                    {% if forloop.counter >= 8 and forloop.counter <= 10 %}
+                        <img src="{{ baseUrl }}/app/img/ranking/A.png">
+                    {% endif %}
+                    {% if forloop.counter >= 11 and forloop.counter <= 15 %}
+                        <img src="{{ baseUrl }}/app/img/ranking/B+.png">
+                    {% endif %}
+                    {% if forloop.counter >= 16 and forloop.counter <= 20 %}
+                        <img src="{{ baseUrl }}/app/img/ranking/B.png">
+                    {% endif %}
+                    {% if forloop.counter >= 21 and forloop.counter <= 25 %}
+                        <img src="{{ baseUrl }}/app/img/ranking/C+.png">
+                    {% endif %}
+                    {% if forloop.counter >= 26 and forloop.counter <= 30 %}
+                        <img src="{{ baseUrl }}/app/img/ranking/C.png">
+                    {% endif %}
+                    {% if forloop.counter >= 31 and forloop.counter <= 35 %}
+                        <img src="{{ baseUrl }}/app/img/ranking/D+.png">
+                    {% endif %}
+                    {% if forloop.counter >= 36 and forloop.counter <= 40 %}
+                        <img src="{{ baseUrl }}/app/img/ranking/D.png">
+                    {% endif %}
+                    {% if forloop.counter >= 41 and forloop.counter <= 45 %}
+                        <img src="{{ baseUrl }}/app/img/ranking/E+.png">
+                    {% endif %}
+                    {% if forloop.counter >= 46 %}
+                        <img src="{{ baseUrl }}/app/img/ranking/E.png">
+                    {% endif %}
                 </td>
             </tr>
 
@@ -74,24 +119,24 @@
                       enctype="multipart/form-data" class="form-horizontal" novalidate>
                     <div class="modal-body">
                         <fieldset>
-                            
+
                             {% csrf_token %}
 
-                              {{ form.non_field_errors }}
+                            {{ form.non_field_errors }}
 
-                              {% for hidden_field in form.hidden_fields %}
+                            {% for hidden_field in form.hidden_fields %}
                                 {{ hidden_field.errors }}
                                 {{ hidden_field }}
-                              {% endfor %}
+                            {% endfor %}
 
-                                {% for field in form.visible_fields %}
-                                    <div class="form-group">
-                                        {{ field.label_tag }}
-                                        {{ field }}
-                                        {{ field.errors }}
-                                        {{ field.help_text }} 
-                                    </div>
-                                {% endfor %}
+                            {% for field in form.visible_fields %}
+                                <div class="form-group">
+                                    {{ field.label_tag }}
+                                    {{ field }}
+                                    {{ field.errors }}
+                                    {{ field.help_text }}
+                                </div>
+                            {% endfor %}
                             {{ form_new_result }}
                         </fieldset>
                     </div>
@@ -102,5 +147,5 @@
                 </form>
             </div>
         </div>
-    </div>    
+    </div>
 {% endblock %}
