@@ -10,6 +10,7 @@ class Country(models.Model):
 
 class Game(models.Model):
     title = models.CharField(max_length=255, unique=True)
+    url_image = models.CharField(max_length=255)
 
     def __str__(self):
         return self.title
@@ -27,7 +28,6 @@ class Char(models.Model):
 class League(models.Model):
     title = models.CharField(max_length=255, unique=True)
     slug = models.SlugField(unique=True)
-    description = models.TextField(max_length=2000)
     game = models.ForeignKey(Game, on_delete=models.CASCADE, default=1)
 
     def __str__(self):

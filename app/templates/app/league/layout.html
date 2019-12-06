@@ -1,29 +1,22 @@
 {% extends "app/layout.html" %} {% block content %} 
 {% load staticfiles i18n %}
 
-    
-    <div class="row">
-        <div class="col-md-2" style="text-align: center">
-            <img class="rounded-circle" style="width: 200px; height: 200px;" src="{{ baseUrl }}/static/app/img/liga_chilena.png">
-        </div>
-        <div class="col-md-9">
-            <div class="background-sf3">
-                <img src="">
-            </div>            
-        </div>
+    <div class="alert alert-primary">
+        <h3>{{ league.title }}</h3>
     </div>
 
-
+    <hr>
 
     <div class="row">
         <div class="col-md-2" style="text-align: center"> 
+             
+            <img style="width: 100%; height: 200px;" src="{{ baseUrl }}/static/app/img/games/{{ league.game.url_image }}.png">
             <hr>
-            <h5>{{ league.title }}</h5>
-            <hr>    
+
             <ul class="">
-                <li class="list-group-item" style="text-align: left"><a style="display: block" href="{% url 'league_results' league.slug %}">Últimos resultados</a></li>
-                <li class="list-group-item" style="text-align: left"><a style="display: block" href="{% url 'league_ranking' league.slug %}">Ranking</a></li>
-                <li class="list-group-item" style="text-align: left"><a style="display: block" href="{% url 'league_tournaments' league.slug %}">Torneos</a></li>
+                <li class="list-group-item" style="text-align: left; padding: 0px"><a style="padding: 15px; display: block" href="{% url 'league_results' league.slug %}">Últimos resultados</a></li>
+                <li class="list-group-item" style="text-align: left; padding: 0px"><a style="padding: 15px; display: block" href="{% url 'league_ranking' league.slug %}">Ranking</a></li>
+                <li class="list-group-item" style="text-align: left; padding: 0px"><a style="padding: 15px; display: block" href="{% url 'league_tournaments' league.slug %}">Torneos</a></li>
             </ul>
         </div>
         <div class="col-md-9">

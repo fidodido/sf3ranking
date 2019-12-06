@@ -1,0 +1,27 @@
+{% extends "app/layout.html" %} {% block content %} {% load staticfiles i18n %}
+
+<div class="row">
+	<div class="col-md-3 col-md-offset-1">
+		{% csrf_token %}
+
+		{{ form.non_field_errors }}
+
+		{% for hidden_field in form.hidden_fields %}
+		    {{ hidden_field.errors }}
+		    {{ hidden_field }}
+		{% endfor %}
+
+		{% for field in form.visible_fields %}
+		    <div class="form-group">
+		        {{ field.label_tag }}
+		        {{ field }}
+		        {{ field.errors }}
+		        {{ field.help_text }}
+		    </div>
+		{% endfor %}
+	</div>
+</div>
+
+
+
+{% endblock %}

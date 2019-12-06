@@ -4,6 +4,35 @@ from app.models import *
 from django.utils.text import slugify
 
 
+class AuthForm(forms.Form):
+    username = forms.CharField(
+        widget=forms.TextInput(attrs={'class': 'login-input form-control'}))
+    password = forms.CharField(
+        widget=forms.TextInput(attrs={'class': 'login-input form-control'}))
+
+
+class LeagueForm(ModelForm):
+    class Meta:
+        model = League
+        labels = {
+            'title': 'Título',
+            'game': 'Juego'
+        }
+        fields = ['title', 'game']
+        widgets = {
+            'league': forms.HiddenInput(),
+            'game': forms.Select(attrs={'class': 'form-control'}),
+            'title': forms.TextInput(attrs={'class': 'form-control'}),
+        }
+
+    def save(self):
+        instance = super(LeagueForm, self).save(commit=False)
+        instance.slug = slugify(instance.title)
+        instance.save()
+
+        return instance
+        
+
 
 class PlayerForm(ModelForm):
     class Meta:
@@ -16,7 +45,7 @@ class PlayerForm(ModelForm):
         fields = ['nickname', 'ranking', 'main', 'league']
         widgets = {
             'league': forms.HiddenInput(),
-            'main': forms.Select(attrs={'class': 'form-control'}),
+            'main': forms.ModelChoiceField(queryset=Char.objects.all()),
             'nickname': forms.TextInput(attrs={'class': 'form-control'}),
             'ranking': forms.NumberInput(attrs={'id': 'id_ranking', 'class': 'form-control', 'min': 0}),
         }

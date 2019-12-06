@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from django.shortcuts import render, redirect
 from app.models import Result, Player, League, Tournament
-from app.forms import ResultForm, PlayerForm
+from app.forms import ResultForm, PlayerForm, LeagueForm
 from django.contrib import messages
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from app.util import elo_adapted
@@ -22,6 +22,23 @@ SORT_VALUES = {'recientes': '-created', 'votadas': '-votes_agree'}
 
 def index(request, league_slug):
     return redirect('league_results', league_slug)
+
+def create(request):
+    
+    success = False
+
+    if request.method == 'POST':
+
+        form = LeagueForm(request.POST)
+
+        if form.is_valid():
+            form.save()
+            success = True
+
+    return JsonResponse({
+        'success': success,
+        'errors': dict(form.errors.items())
+    })
 
 def tournaments(request, league_slug):
 
@@ -104,6 +121,7 @@ def ranking(request, league_slug):
 
 
 def player(request, league_slug, player_id):
+    
     league = League.objects.get(slug=league_slug)
     page = request.GET.get('page', 1)
 
@@ -139,7 +157,6 @@ def create_new_player(request, league_slug):
         form = PlayerForm(request.POST)
 
         if form.is_valid():
-
             form.save()
             success = True
 

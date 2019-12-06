@@ -39,7 +39,7 @@
 </div>
 
 
-<nav class="navbar navbar-expand-lg navbar-dark fixed-top">
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
     <a class="navbar-brand" href="{% url 'index' %}">
         Ligas Arcade Retro
     </a>
@@ -47,7 +47,17 @@
             aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
     </button>
-
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav mr-auto">
+        </ul>
+        <form class="form-inline my-2 my-lg-0">
+            {% if user.is_authenticated %}
+            <a href="{% url 'signout' %}" data-toggle="tooltip" data-placement="bottom" title="Salir del sistema" class="btn btn-sm btn-danger my-2 my-sm-0" type="submit">Salir del sistema</a>
+            {% else %}
+            <a href="{% url 'login' %}" data-toggle="tooltip" data-placement="bottom" title="Salir del sistema" class="btn btn-sm btn-primary my-2 my-sm-0" type="submit">Entrar al sistema</a>
+            {% endif %}
+        </form>
+    </div>
 </nav>
 
 <div  class="container-fluid">
