@@ -49,7 +49,7 @@ class MatchType(models.Model):
 
 
 class Player(models.Model):
-    nickname = models.CharField(max_length=255, unique=True)
+    nickname = models.CharField(max_length=255)
     ranking = models.FloatField(default=0)
     main = models.ForeignKey(Char, on_delete=models.CASCADE)
     league = models.ForeignKey(League, on_delete=models.CASCADE, default=1)

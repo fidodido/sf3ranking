@@ -35,6 +35,7 @@ class LeagueForm(ModelForm):
 
 
 class PlayerForm(ModelForm):
+
     class Meta:
         model = Player
         labels = {
@@ -42,13 +43,20 @@ class PlayerForm(ModelForm):
             'main': 'Main',
             'ranking': 'Ranking inicial'
         }
-        fields = ['nickname', 'ranking', 'main', 'league']
+        fields = ['nickname', 'main', 'ranking', 'league']
         widgets = {
             'league': forms.HiddenInput(),
-            'main': forms.ModelChoiceField(queryset=Char.objects.all()),
             'nickname': forms.TextInput(attrs={'class': 'form-control'}),
+            'main': forms.Select(attrs={'class': 'form-control'}),
             'ranking': forms.NumberInput(attrs={'id': 'id_ranking', 'class': 'form-control', 'min': 0}),
         }
+
+    def __init__(self, *args, **kwargs):
+
+        game = kwargs.pop('game', None)
+        super(PlayerForm, self).__init__(*args, **kwargs) 
+        self.fields['main'].queryset = Char.objects.filter(game__id=game)
+
 
 class ResultForm(ModelForm):
 
@@ -74,3 +82,10 @@ class ResultForm(ModelForm):
             'tournament': forms.Select(attrs={'class': 'form-control'}),
             'replay_url': forms.TextInput(attrs={'class': 'form-control'}),
         }
+
+    def __init__(self, *args, **kwargs):
+
+        league = kwargs.pop('league', None)
+        super(ResultForm, self).__init__(*args, **kwargs) 
+        self.fields['challenging'].queryset = Player.objects.filter(league__id=league)
+        self.fields['rival'].queryset = Player.objects.filter(league__id=league)

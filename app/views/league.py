@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from django.shortcuts import render, redirect
-from app.models import Result, Player, League, Tournament
+from app.models import Char, Result, Player, League, Tournament
 from app.forms import ResultForm, PlayerForm, LeagueForm
 from django.contrib import messages
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
@@ -79,7 +79,7 @@ def results(request, league_slug):
         'league': league.id,
         'victory_player': 1,
         'loser_player': 2
-    })
+    }, league=league.id)
 
     results = Result.objects.filter(league=league).order_by('-created')
 
@@ -111,7 +111,7 @@ def ranking(request, league_slug):
     form = PlayerForm(initial={
         'ranking': 1000,
         'league': league.id
-    })
+    },game=league.game.id)
 
     return render(request, template, {
         'form': form,
@@ -154,7 +154,9 @@ def create_new_player(request, league_slug):
 
     if request.method == 'POST':
 
-        form = PlayerForm(request.POST)
+
+        form = PlayerForm(request.POST, game=league.game.id)
+        #form.fields['main'].choices = [Char.objects.filter(game__id=league.game.id)]
 
         if form.is_valid():
             form.save()
@@ -173,7 +175,7 @@ def create_new_result(request, league_slug):
 
     if request.method == 'POST':
 
-        form = ResultForm(request.POST)
+        form = ResultForm(request.POST, league=league.id)
 
         if form.is_valid():
 

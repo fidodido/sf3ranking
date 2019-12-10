@@ -1,5 +1,4 @@
 {% extends "app/league/layout.html" %} {% block content_project %} {% load staticfiles i18n %}
-    {% static "" as baseUrl %}
 
 
     <div class="clearfix">
@@ -29,7 +28,7 @@
                 <td>
                     <a href="{% url 'league_player' league.slug player.id %}">
                         <img class="rounded-circle" style="width: 30px; height: 30px;"
-                             src="{{ baseUrl }}/app/img/chars/{{ player.main.url_image }}">
+                             src="{{ baseUrl }}/static/app/img/chars/{{ league.game.url_image }}/{{ player.main.url_image }}">
                         {{ player.nickname }}</a>
                 </td>
                 <td>{{ player.ranking|floatformat }}</td>
@@ -58,46 +57,46 @@
                 </td>
                 <td>
                     {% if forloop.counter is 1 %}
-                        <img src="{{ baseUrl }}/app/img/ranking/MSF.png">
+                        <img src="{{ baseUrl }}/static/app/img/ranking/MSF.png">
                     {% endif %}
                     {% if forloop.counter is 2 %}
-                        <img src="{{ baseUrl }}/app/img/ranking/XS.png">
+                        <img src="{{ baseUrl }}/static/app/img/ranking/XS.png">
                     {% endif %}
                     {% if forloop.counter is 3 %}
-                        <img src="{{ baseUrl }}/app/img/ranking/SS.png">
+                        <img src="{{ baseUrl }}/static/app/img/ranking/SS.png">
                     {% endif %}
                     {% if forloop.counter == 4 or forloop.counter == 5 %}
-                        <img src="{{ baseUrl }}/app/img/ranking/S.png">
+                        <img src="{{ baseUrl }}/static/app/img/ranking/S.png">
                     {% endif %}
                     {% if forloop.counter >= 6 and forloop.counter <= 7 %}
-                        <img src="{{ baseUrl }}/app/img/ranking/A+.png">
+                        <img src="{{ baseUrl }}/static/app/img/ranking/A+.png">
                     {% endif %}
                     {% if forloop.counter >= 8 and forloop.counter <= 10 %}
-                        <img src="{{ baseUrl }}/app/img/ranking/A.png">
+                        <img src="{{ baseUrl }}/static/app/img/ranking/A.png">
                     {% endif %}
                     {% if forloop.counter >= 11 and forloop.counter <= 15 %}
-                        <img src="{{ baseUrl }}/app/img/ranking/B+.png">
+                        <img src="{{ baseUrl }}/static/app/img/ranking/B+.png">
                     {% endif %}
                     {% if forloop.counter >= 16 and forloop.counter <= 20 %}
-                        <img src="{{ baseUrl }}/app/img/ranking/B.png">
+                        <img src="{{ baseUrl }}/static/app/img/ranking/B.png">
                     {% endif %}
                     {% if forloop.counter >= 21 and forloop.counter <= 25 %}
-                        <img src="{{ baseUrl }}/app/img/ranking/C+.png">
+                        <img src="{{ baseUrl }}/static/app/img/ranking/C+.png">
                     {% endif %}
                     {% if forloop.counter >= 26 and forloop.counter <= 30 %}
-                        <img src="{{ baseUrl }}/app/img/ranking/C.png">
+                        <img src="{{ baseUrl }}/static/app/img/ranking/C.png">
                     {% endif %}
                     {% if forloop.counter >= 31 and forloop.counter <= 35 %}
-                        <img src="{{ baseUrl }}/app/img/ranking/D+.png">
+                        <img src="{{ baseUrl }}/static/app/img/ranking/D+.png">
                     {% endif %}
                     {% if forloop.counter >= 36 and forloop.counter <= 40 %}
-                        <img src="{{ baseUrl }}/app/img/ranking/D.png">
+                        <img src="{{ baseUrl }}/static/app/img/ranking/D.png">
                     {% endif %}
                     {% if forloop.counter >= 41 and forloop.counter <= 45 %}
-                        <img src="{{ baseUrl }}/app/img/ranking/E+.png">
+                        <img src="{{ baseUrl }}/static/app/img/ranking/E+.png">
                     {% endif %}
                     {% if forloop.counter >= 46 %}
-                        <img src="{{ baseUrl }}/app/img/ranking/E.png">
+                        <img src="{{ baseUrl }}/static/app/img/ranking/E.png">
                     {% endif %}
                 </td>
             </tr>
