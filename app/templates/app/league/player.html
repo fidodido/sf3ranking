@@ -1,5 +1,4 @@
 {% extends "app/league/layout.html" %} {% block content_project %} {% load staticfiles i18n %}
-    {% static "" as baseUrl %}
 
 
     <table class="table">
@@ -19,7 +18,7 @@
         <tr>
             <th>Main</th>
             <th><img class="rounded-circle" style="width: 40px; height: 40px;"
-                     src="{{ baseUrl }}/app/img/chars/{{ player.main.url_image }}"></th>
+                     src="{{ baseUrl }}/static/app/img/chars/{{ league.game.url_image }}/{{ player.main.url_image }}"></th>
         </tr>
     </table>
 
