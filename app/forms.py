@@ -4,6 +4,9 @@ from app.models import *
 from django.utils.text import slugify
 
 
+
+
+
 class AuthForm(forms.Form):
     username = forms.CharField(
         widget=forms.TextInput(attrs={'class': 'login-input form-control'}))
@@ -18,8 +21,9 @@ class LeagueForm(ModelForm):
             'title': 'Título',
             'game': 'Juego'
         }
-        fields = ['title', 'game']
+        fields = ['title', 'game', 'user']
         widgets = {
+            'user': forms.HiddenInput(),
             'league': forms.HiddenInput(),
             'game': forms.Select(attrs={'class': 'form-control'}),
             'title': forms.TextInput(attrs={'class': 'form-control'}),

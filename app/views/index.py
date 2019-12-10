@@ -22,7 +22,7 @@ def index(request):
 
 	results = Result.objects.all().order_by('-created')[:10]
 	leagues = League.objects.all()
-	form = LeagueForm()
+	form = LeagueForm(initial={'user': request.user})
 	template = 'app/index/index.html'
 
 	return render(request, template, {

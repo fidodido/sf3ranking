@@ -4,7 +4,7 @@
 
     <div class="clearfix">
         <div class="pull-right">
-            {% if user.is_superuser %}
+            {% if user.id == league.user.id %}
                 <a class="btn btn-danger btn-sm" href="#modal-new-player" data-toggle="modal">+ Agregar nuevo torneo</a>
             {% endif %}
         </div>

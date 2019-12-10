@@ -10,6 +10,7 @@ from django.http import HttpResponse
 from datetime import datetime
 from django.contrib.auth.models import User
 from elo import rate_1vs1
+from django.contrib.auth.forms import UserCreationForm
 
 MESSAGE_SUCCESS = "La acción ha sido exitosa."
 PAGINATE_DEFAULT = 25;
@@ -68,6 +69,23 @@ def login(request):
 
     form = AuthForm()
     return render(request, template)
+
+def signup(request):
+
+    template = 'app/auth/signup.html'
+
+    if request.method == 'POST':
+        form = UserCreationForm(request.POST)
+        if form.is_valid():
+            form.save()
+            username = form.cleaned_data.get('username')
+            raw_password = form.cleaned_data.get('password1')
+            user = authenticate(username=username, password=raw_password)
+            auth_login(request, user)
+            return redirect('index')
+    else:
+        form = UserCreationForm()
+    return render(request, template, {'form': form})
 
 def signout(request):
     logout(request)

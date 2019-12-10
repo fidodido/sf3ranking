@@ -11,6 +11,7 @@ from app.views.league import tournaments
 from app.views.league import create as league_create
 from app.views.auth import login
 from app.views.auth import signout
+from app.views.auth import signup
 
 urlpatterns = [
 
@@ -22,6 +23,11 @@ urlpatterns = [
     url(r'^login/$',
         login,
         name='login'
+    ),
+
+    url(r'^signup/$',
+        signup,
+        name='signup'
     ),
 
     url(r'^logout$',

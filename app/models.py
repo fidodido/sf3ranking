@@ -1,4 +1,6 @@
 from django.db import models
+from django.contrib.auth.models import User
+
 
 class Country(models.Model):
     name = models.CharField(max_length=255)
@@ -26,6 +28,7 @@ class Char(models.Model):
 
 
 class League(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='owner_by',)
     title = models.CharField(max_length=255, unique=True)
     slug = models.SlugField(unique=True)
     game = models.ForeignKey(Game, on_delete=models.CASCADE, default=1)
