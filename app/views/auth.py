@@ -4,12 +4,10 @@ from django.contrib.auth import authenticate, login as auth_login, logout
 from django.contrib.auth.decorators import login_required, permission_required
 from django.contrib import messages
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
-from docx import Document
 from app.forms import AuthForm
 from django.http import HttpResponse
 from datetime import datetime
 from django.contrib.auth.models import User
-from elo import rate_1vs1
 from django.contrib.auth.forms import UserCreationForm
 
 MESSAGE_SUCCESS = "La acción ha sido exitosa."
