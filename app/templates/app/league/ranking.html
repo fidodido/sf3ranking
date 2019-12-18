@@ -104,6 +104,7 @@
         {% endfor %}
     </table>
 
+    {% if user.id == league.user.id %}
     <!-- Create Modal -->
     <div class="modal fade" id="modal-new-player" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
          aria-hidden="true">
@@ -147,4 +148,6 @@
             </div>
         </div>
     </div>
+    {% endif %}
+    
 {% endblock %}

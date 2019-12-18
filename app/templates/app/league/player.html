@@ -5,7 +5,9 @@
         <thead>
         <tr>
             <th>Detalles del jugador</th>
+            {% if user.id == league.user.id %}
             <td><a class="btn btn-danger btn-sm" href="#modal-new-player" data-toggle="modal">Editar datos</a></td>
+            {% endif %}
         </tr>
         </thead>
         <tr>
@@ -58,13 +60,14 @@
         </ul>
     </nav>
 
+    {% if user.id == league.user.id %}
     <!-- Create Modal -->
     <div class="modal fade" id="modal-new-player" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
          aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h4 class="modal-title" id="myModalLabel">Create</h4>
+                    <h4 class="modal-title" id="myModalLabel">Editar</h4>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
                             aria-hidden="true">&times;</span></button>
                 </div>
@@ -101,4 +104,5 @@
             </div>
         </div>
     </div>
+    {% endif %}
 {% endblock %}
