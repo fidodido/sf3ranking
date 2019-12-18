@@ -25,12 +25,7 @@ html {
 	display: block;
 }
 
-.dark-card {
-	background: rgb(34, 34, 34); 
-}
-
 #container {
-	
 	padding-top: 15px; 
 	padding-bottom: 15px; --darkreader-inline-bgimage: initial; --darkreader-inline-bgcolor:#202224;
 }

@@ -4,7 +4,8 @@
     <table class="table">
         <thead>
         <tr>
-            <th colspan="100">Detalles del jugador</th>
+            <th>Detalles del jugador</th>
+            <td><a class="btn btn-danger btn-sm" href="#modal-new-player" data-toggle="modal">Editar datos</a></td>
         </tr>
         </thead>
         <tr>
@@ -56,4 +57,48 @@
             {% endif %}
         </ul>
     </nav>
+
+    <!-- Create Modal -->
+    <div class="modal fade" id="modal-new-player" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+         aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title" id="myModalLabel">Create</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                            aria-hidden="true">&times;</span></button>
+                </div>
+                <form id="form-new-player" action="{% url 'league_player_edit' league_slug=league.slug player_id=player.id %}" method="POST"
+                      enctype="multipart/form-data" class="form-horizontal" novalidate>
+                    <div class="modal-body">
+                        <fieldset>
+
+                            {% csrf_token %}
+
+                            {{ form.non_field_errors }}
+
+                            {% for hidden_field in form.hidden_fields %}
+                                {{ hidden_field.errors }}
+                                {{ hidden_field }}
+                            {% endfor %}
+
+                            {% for field in form.visible_fields %}
+                                <div class="form-group">
+                                    {{ field.label_tag }}
+                                    {{ field }}
+                                    {{ field.errors }}
+                                    {{ field.help_text }}
+                                </div>
+                            {% endfor %}
+                            {{ form_new_result }}
+                        </fieldset>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                        <button id="save-new-result" type="submit" class="btn btn-primary">Save</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
 {% endblock %}

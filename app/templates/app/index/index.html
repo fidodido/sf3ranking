@@ -3,25 +3,25 @@
 
 
 <div class="row">
-    <div class="col-md-6">
+    <div class="col-md-7">
         <div class="row">
             {% if request.user.is_authenticated %}
-            <div class="col-md-4">
+            <div class="col-md-3">
                 <div class="card" style="margin-bottom: 15px; text-align: center; background: #222; ">
                      <h5 class="card-header text-light">Crear nueva liga</h5>
                     <div class="card-body">
-                        <a href="#modal-create-league" data-toggle="modal"><img style="width: 100%; height: 200px;" src="{{ baseUrl }}static/app/img/plus.png"></a>
+                        <a href="#modal-create-league" data-toggle="modal"><img style="width: 100px; height: 120px;" src="{{ baseUrl }}static/app/img/plus.png"></a>
                     </div>
                 </div>
             </div>
             {% endif %}
             {% for league in leagues %}
-            <div class="col-md-4">
+            <div class="col-md-3">
                 <div class="card" style="margin-bottom: 15px; text-align: center; background: #222">
                      <h5 class="card-header text-light">{{ league.title }}</h5>
                     <div class="card-body">
                         <a href="{% url 'league_index' league.slug %}">
-                        <img style="width: 100%; height: 200px;" src="{{ baseUrl }}static/app/img/games/{{ league.game.url_image }}.png">
+                        <img style="width: 100%; height: 120px;" src="{{ baseUrl }}static/app/img/games/{{ league.game.url_image }}.png">
                         </a>
                     </div>
                 </div>
@@ -29,10 +29,65 @@
             {% endfor %}
         </div>
     </div>
-    <div class="col-md-6">
-                <h5>Ultimos resultados</h5>
-        <hr>
-        {% include "app/league/table_results.html" %}
+    <div class="col-md-5">
+        <div class="card">
+            <h5 class="card-header text-light">Últimos resultados</h5>
+            <div class="card-body">
+                <div class="row row-table">
+                    <div class="col-md-2 col-2">Retador</div>
+                    <div class="col-md-2 col-2">Rival</div>
+                    <div class="col-md-2 col-4">Resultado</div>
+                    <div class="col-md-4 col-4">Liga</div>
+                    <div class="col-md-2 col-0">Replay</div>
+                </div>
+                {% for result in results %}
+                    <div class="row row-table">
+                        <div class="col-md-2 col-4">
+                            <img class="rounded-circle" style="width: 40px; height: 40px;"
+                                 src="{{ baseUrl }}/static/app/img/chars/{{ result.league.game.url_image }}/{{ result.challenging.main.url_image }}">
+                            <br>
+                            <a href="{% url 'league_player' result.league.slug result.challenging.id %}">{{ result.challenging.nickname }}</a>
+                            <br>
+                            {% if result.challenging == result.victory_player %}
+                                <span class="badge badge-success">{{ result.ranking_del_challenging|floatformat }}</span>
+                            {% else %}
+                                <span class="badge badge-danger">{{ result.ranking_del_challenging|floatformat }}</span>
+                            {% endif %}
+                        </div>
+                        <div class="col-md-2 col-4">
+                            <img class="rounded-circle" style="width: 40px; height: 40px;"
+                                 src="{{ baseUrl }}/static/app/img/chars/{{ result.league.game.url_image }}/{{ result.rival.main.url_image }}">
+                            <br>
+                            <a href="{% url 'league_player' result.league.slug result.rival.id %}">{{ result.rival.nickname }}</a>
+                            <br>
+                            {% if result.rival == result.victory_player %}
+                                <span class="badge badge-success">{{ result.ranking_del_rival|floatformat }}</span>
+                            {% else %}
+                                <span class="badge badge-danger">{{ result.ranking_del_rival|floatformat }}</span>
+                            {% endif %}
+                        </div>
+                        <div class="col-md-2 col-4">
+                            <h4><span
+                                    class="badge badge-secondary">{{ result.challenging_score|default_if_none:"0" }} - {{ result.rival_score|default_if_none:"0" }}</span>
+                            </h4>
+                            {% if user.is_superuser %}
+                                <a href="#"><a href="{% url 'league_delete_result' result.league.slug result.id %}">eliminar</a></a>
+                            {% endif %}
+                        </div>
+                        <div class="col-md-4 col-0">
+                            {{ result.league.title }}
+                        </div>
+                        <div class="col-md col-0">
+                            {% if result.replay_url %}
+                                <a href="{{ result.replay_url }}">Ver replay</a>
+                            {% else %}
+                                --
+                            {% endif %}
+                        </div>
+                    </div>
+                {% endfor %}                
+            </div>
+        </div>
     </div>
 
 </div>

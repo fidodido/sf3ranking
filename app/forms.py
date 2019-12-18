@@ -44,10 +44,9 @@ class PlayerForm(ModelForm):
         model = Player
         labels = {
             'nickname': 'Nick',
-            'main': 'Main',
-            'ranking': 'Ranking inicial'
+            'main': 'Main'
         }
-        fields = ['nickname', 'main', 'ranking', 'league']
+        fields = ['nickname', 'main', 'league']
         widgets = {
             'league': forms.HiddenInput(),
             'nickname': forms.TextInput(attrs={'class': 'form-control'}),
@@ -56,7 +55,6 @@ class PlayerForm(ModelForm):
         }
 
     def __init__(self, *args, **kwargs):
-
         game = kwargs.pop('game', None)
         super(PlayerForm, self).__init__(*args, **kwargs) 
         self.fields['main'].queryset = Char.objects.filter(game__id=game)

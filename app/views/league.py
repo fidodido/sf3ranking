@@ -101,7 +101,6 @@ def results(request, league_slug):
         'paginator': paginator
     })
 
-
 def ranking(request, league_slug):
 
     league = League.objects.get(slug=league_slug)
@@ -119,13 +118,14 @@ def ranking(request, league_slug):
         'players': players
     })
 
-
 def player(request, league_slug, player_id):
     
     league = League.objects.get(slug=league_slug)
     page = request.GET.get('page', 1)
-
     player = Player.objects.get(pk=player_id)
+
+    form = PlayerForm(instance=player, game=league.game.id)
+
     results = Result.objects.filter(Q(challenging=player) | Q(rival=player)).order_by('-created')
     paginator = Paginator(results, PAGINATE_DEFAULT)
 
@@ -139,12 +139,31 @@ def player(request, league_slug, player_id):
     template = 'app/league/player.html'
 
     return render(request, template, {
+        'form': form,
         'league': league,
         'player': player,
         'results': results,
         'paginator': paginator,
     })
 
+def player_edit(request, league_slug, player_id):
+    
+    league = League.objects.get(slug=league_slug)
+    player = Player.objects.get(pk=player_id)
+    success = False
+
+    if request.method == 'POST':
+
+        form = PlayerForm(request.POST, instance=player, game=league.game.id)
+
+        if form.is_valid():
+            form.save()
+            success = True
+
+    return JsonResponse({
+        'success': success,
+        'errors': dict(form.errors.items())
+    })
 
 @login_required
 def create_new_player(request, league_slug):
@@ -154,12 +173,18 @@ def create_new_player(request, league_slug):
 
     if request.method == 'POST':
 
-
         form = PlayerForm(request.POST, game=league.game.id)
-        #form.fields['main'].choices = [Char.objects.filter(game__id=league.game.id)]
 
         if form.is_valid():
-            form.save()
+            new_player = form.save()
+
+            count = Player.objects.filter(league=league).count()
+            median = Player.objects.filter(league=league).values_list('ranking', flat=True).order_by('ranking')[int(round(count/2))]
+
+            new_player.ranking = median
+            new_player.save()
+            
+
             success = True
 
     return JsonResponse({

@@ -32,6 +32,11 @@ $(document).ready(function () {
             success: function(response) {
 
                 if(response.success === false) {
+
+                    if(response.errors.hasOwnProperty('__all__')) {
+                        $("#form-new-player").find('.modal-body').prepend('<div class="alert alert-danger">' +  response.errors['__all__'][0] +'</div>');
+                    }
+
                     for(err in response.errors) {
                         $(self).find("[name='" + err + "']").after('<span class="input-error">' + response.errors[err][0] + '</span>');
                     }
