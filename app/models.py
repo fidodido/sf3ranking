@@ -83,6 +83,19 @@ class Tournament(models.Model):
     def __str__(self):
         return self.name
 
+class MedalType(models.Model):
+    name = models.CharField(max_length=255, unique=True)
+
+    def __str__(self):
+        return self.name
+
+class Medal(models.Model):
+    tournament = models.ForeignKey(Tournament, on_delete=models.CASCADE, default=1)
+    player = models.ForeignKey(Player, on_delete=models.CASCADE)
+    mtype = models.ForeignKey(MedalType, on_delete=models.CASCADE, default=1)
+
+    class Meta:
+        unique_together = ('tournament', 'player', 'mtype', )
 
 class Result(models.Model):
 
