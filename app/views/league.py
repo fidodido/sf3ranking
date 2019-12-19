@@ -180,10 +180,15 @@ def create_new_player(request, league_slug):
 
             count = Player.objects.filter(league=league).count()
 
-            if count is 0:
+            print(count)
+
+            if count is 1:
                 median = 1000
             else:
                 median = Player.objects.filter(league=league).values_list('ranking', flat=True).order_by('ranking')[int(round(count/2))]
+
+            print(median)
+
 
             new_player.ranking = median
             new_player.save()
