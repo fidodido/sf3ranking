@@ -37,7 +37,6 @@ class LeagueForm(ModelForm):
         return instance
         
 
-
 class PlayerForm(ModelForm):
 
     class Meta:
@@ -91,3 +90,17 @@ class ResultForm(ModelForm):
         super(ResultForm, self).__init__(*args, **kwargs) 
         self.fields['challenging'].queryset = Player.objects.filter(league__id=league)
         self.fields['rival'].queryset = Player.objects.filter(league__id=league)
+
+
+class TournamentForm(ModelForm):
+
+    class Meta:
+        model = Tournament
+        labels = {
+            'name': 'Nombre'
+        }
+        fields = ['name', 'league']
+        widgets = {
+            'league': forms.HiddenInput(),
+            'name': forms.TextInput(attrs={'class': 'form-control'})
+        }

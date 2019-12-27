@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from django.shortcuts import render, redirect
 from app.models import Char, Result, Player, League, Tournament
-from app.forms import ResultForm, PlayerForm, LeagueForm
+from app.forms import ResultForm, PlayerForm, LeagueForm, TournamentForm
 from django.contrib import messages
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from app.util import elo_adapted
@@ -45,10 +45,8 @@ def tournaments(request, league_slug):
     page = request.GET.get('page', 1)
     league = League.objects.get(slug=league_slug)
 
-    form_new_result = ResultForm(initial={
-        'league': league.id,
-        'victory_player': 1,
-        'loser_player': 2
+    form = TournamentForm(initial={
+        'league': league.id
     })
 
     tournaments = Tournament.objects.filter(league=league)
@@ -64,7 +62,7 @@ def tournaments(request, league_slug):
     template = 'app/league/tournaments.html'
 
     return render(request, template, {
-        'form_new_result': form_new_result,
+        'form': form,
         'league': league,
         'tournaments': tournaments,
         'paginator': paginator
@@ -251,6 +249,26 @@ def create_new_result(request, league_slug):
             loser_player.disabled = False
             loser_player.save()
 
+            success = True
+
+    return JsonResponse({
+        'success': success,
+        'errors': dict(form.errors.items())
+    })
+
+@login_required
+def create_new_tournament(request, league_slug):
+
+    league = League.objects.get(slug=league_slug)
+    success = False
+
+    if request.method == 'POST':
+
+        form = TournamentForm(request.POST)
+
+        if form.is_valid():
+
+            form.save()
             success = True
 
     return JsonResponse({

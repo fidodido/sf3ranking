@@ -37,7 +37,7 @@
                 <h4><span
                         class="badge badge-secondary">{{ result.challenging_score|default_if_none:"0" }} - {{ result.rival_score|default_if_none:"0" }}</span>
                 </h4>
-                {% if user.is_superuser %}
+                {% if user.id == league.user.id %}
                     <a href="#"><a href="{% url 'league_delete_result' result.league.slug result.id %}">eliminar</a></a>
                 {% endif %}
             </div>

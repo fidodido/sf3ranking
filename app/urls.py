@@ -3,6 +3,7 @@ from app.views.index import index
 from app.views.league import index as league_index
 from app.views.league import create_new_player
 from app.views.league import create_new_result
+from app.views.league import create_new_tournament
 from app.views.league import delete_result
 from app.views.league import player
 from app.views.league import player_edit
@@ -49,6 +50,11 @@ urlpatterns = [
     url(r'^l/(?P<league_slug>[a-zA-Z0-9-]+)/create-new-result$',
         create_new_result,
         name='league_create_new_result'
+        ),
+
+    url(r'^l/(?P<league_slug>[a-zA-Z0-9-]+)/create-new-tournament$',
+        create_new_tournament,
+        name='league_create_new_tournament'
         ),
 
     url(r'^l/(?P<league_slug>[a-zA-Z0-9-]+)/create-new-player$',
