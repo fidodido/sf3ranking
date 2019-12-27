@@ -43,9 +43,11 @@
                 </div>
                 {% for result in results %}
                     <div class="row row-table">
-                        <div class="col-md-2 col-4">
+                        <div class="col-md-2 col-4">                         
                             <img class="rounded-circle" style="width: 40px; height: 40px;"
                                  src="{{ baseUrl }}/static/app/img/chars/{{ result.league.game.url_image }}/{{ result.challenging.main.url_image }}">
+                            <img style="width: 25px; height: 25px;"
+                                 src="{{ baseUrl }}/static/app/img/flags/{{ result.challenging.country.url_image }}">   
                             <br>
                             <a href="{% url 'league_player' result.league.slug result.challenging.id %}">{{ result.challenging.nickname }}</a>
                             <br>
@@ -58,6 +60,8 @@
                         <div class="col-md-2 col-4">
                             <img class="rounded-circle" style="width: 40px; height: 40px;"
                                  src="{{ baseUrl }}/static/app/img/chars/{{ result.league.game.url_image }}/{{ result.rival.main.url_image }}">
+                            <img style="width: 25px; height: 25px;"
+                                 src="{{ baseUrl }}/static/app/img/flags/{{ result.rival.country.url_image }}">   
                             <br>
                             <a href="{% url 'league_player' result.league.slug result.rival.id %}">{{ result.rival.nickname }}</a>
                             <br>

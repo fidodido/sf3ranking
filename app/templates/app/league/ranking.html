@@ -27,8 +27,10 @@
                 <td>{{ forloop.counter }}</td>
                 <td>
                     <a href="{% url 'league_player' league.slug player.id %}">
-                        <img class="rounded-circle" style="width: 30px; height: 30px;"
+                        <img class="rounded-circle" style="width: 40px; height: 40px;"
                              src="{{ baseUrl }}/static/app/img/chars/{{ league.game.url_image }}/{{ player.main.url_image }}">
+                        <img style="width: 25px; height: 25px;"
+                             src="{{ baseUrl }}/static/app/img/flags/{{ player.country.url_image }}">
                         {{ player.nickname }}</a>
                 </td>
                 <td>{{ player.ranking|floatformat }}</td>

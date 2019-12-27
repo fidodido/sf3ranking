@@ -43,13 +43,15 @@ class PlayerForm(ModelForm):
         model = Player
         labels = {
             'nickname': 'Nick',
-            'main': 'Main'
+            'main': 'Main',
+            'country': 'Pais'
         }
-        fields = ['nickname', 'main', 'league']
+        fields = ['nickname', 'main', 'league', 'country']
         widgets = {
             'league': forms.HiddenInput(),
             'nickname': forms.TextInput(attrs={'class': 'form-control'}),
             'main': forms.Select(attrs={'class': 'form-control'}),
+            'country': forms.Select(attrs={'class': 'form-control'}),
             'ranking': forms.NumberInput(attrs={'id': 'id_ranking', 'class': 'form-control', 'min': 0}),
         }
 

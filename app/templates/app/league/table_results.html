@@ -12,6 +12,8 @@
             <div class="col-md-2 col-4">
                 <img class="rounded-circle" style="width: 40px; height: 40px;"
                      src="{{ baseUrl }}/static/app/img/chars/{{ result.league.game.url_image }}/{{ result.challenging.main.url_image }}">
+                <img class="" style="width: 25px; height: 25px;"
+                     src="{{ baseUrl }}/static/app/img/flags/{{ result.challenging.country.url_image }}">
                 <br>
                 <a href="{% url 'league_player' result.league.slug result.challenging.id %}">{{ result.challenging.nickname }}</a>
                 <br>
@@ -21,9 +23,11 @@
                     <span class="badge badge-danger">{{ result.ranking_del_challenging|floatformat }}</span>
                 {% endif %}
             </div>
-            <div class="col-md-2 col-4">
+            <div class="col-md-2 col-4">          
                 <img class="rounded-circle" style="width: 40px; height: 40px;"
                      src="{{ baseUrl }}/static/app/img/chars/{{ result.league.game.url_image }}/{{ result.rival.main.url_image }}">
+                <img class="" style="width: 25px; height: 25px;"
+                     src="{{ baseUrl }}/static/app/img/flags/{{ result.rival.country.url_image }}">      
                 <br>
                 <a href="{% url 'league_player' result.league.slug result.rival.id %}">{{ result.rival.nickname }}</a>
                 <br>

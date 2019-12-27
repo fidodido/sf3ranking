@@ -61,6 +61,7 @@ class Player(models.Model):
     main = models.ForeignKey(Char, on_delete=models.CASCADE)
     league = models.ForeignKey(League, on_delete=models.CASCADE, default=1)
     disabled = models.BooleanField(default=False)
+    country = models.ForeignKey(Country, default=1, on_delete=models.CASCADE)
 
     def victories(self):
         return Result.objects.filter(victory_player=self).count()
