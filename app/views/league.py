@@ -104,7 +104,7 @@ def results(request, league_slug):
 def ranking(request, league_slug):
 
     league = League.objects.get(slug=league_slug)
-    players = Player.objects.filter(league=league).order_by('-ranking')
+    players = Player.objects.filter(league=league, disabled=False).order_by('-ranking')
     template = 'app/league/ranking.html'
 
     form = PlayerForm(initial={
@@ -244,6 +244,12 @@ def create_new_result(request, league_slug):
             new_result.ranking_del_challenging = changes[0]
             new_result.ranking_del_rival = changes[1]
             new_result.save()
+
+            victory_player.disabled = False
+            victory_player.save()
+
+            loser_player.disabled = False
+            loser_player.save()
 
             success = True
 

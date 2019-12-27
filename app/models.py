@@ -60,6 +60,7 @@ class Player(models.Model):
     ranking = models.FloatField(default=0)
     main = models.ForeignKey(Char, on_delete=models.CASCADE)
     league = models.ForeignKey(League, on_delete=models.CASCADE, default=1)
+    disabled = models.BooleanField(default=False)
 
     def victories(self):
         return Result.objects.filter(victory_player=self).count()

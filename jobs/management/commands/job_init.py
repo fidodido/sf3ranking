@@ -11,13 +11,13 @@ class Command(BaseCommand):
             #job name can be passed along with either of the parameters
             '-a',
             '--appName',
-			default=False,
+            default=False,
             dest='app_name',
-			#LIST OF CHOICES - job name
+            #LIST OF CHOICES - job name
             choices=['app']
         )
 
-		#Add any additional parameters as an argument
+        #Add any additional parameters as an argument
         parser.add_argument(
             #user preferences
             '-n',
@@ -25,30 +25,39 @@ class Command(BaseCommand):
             default='7',
             dest='num_days',
             choices=['7', '2']
-	    )
+        )
 
-	#Any valid command will call handler
+    #Any valid command will call handler
     def handle(self, *args, **options):
 
         #Init Jobs
         app_name = options['app_name']
 
-		#sample 
+        #sample 
         if app_name == 'app':
 
             from app.models import Player, Result
             from django.db.models import Q
+            from django.db.models.functions import Extract
 
             import datetime
 
-            date = datetime.date.today()
-            print(date)
-
+            cur_date = datetime.date.today()
+            cur_year_month = cur_date.strftime("%Y-%m")
             players = Player.objects.all()
-
-            year = 2019
-            month = 1
-
+            
             for player in players:
-            	count = Result.objects.annotate(year=2019, month=1).values('year', 'month').annotate(count=Count('pk'))
-            	print(count)
+
+                count = 0
+
+                # contar los resultados jugadores durante el mes actual.
+                results = Result.objects.filter(Q(challenging=player)| Q(rival=player))
+
+                for result in results:
+                    if cur_year_month == result.created.strftime("%Y-%m"):
+                        count = count + 1
+
+                # si no tiene peleas, se deshabilita el player
+                if count == 0:
+                    player.disabled = True
+                    player.save()
