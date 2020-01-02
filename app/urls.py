@@ -9,6 +9,7 @@ from app.views.league import player
 from app.views.league import player_edit
 from app.views.league import ranking
 from app.views.league import results
+from app.views.league import versus
 from app.views.league import tournaments
 from app.views.league import create as league_create
 from app.views.auth import login
@@ -70,6 +71,11 @@ urlpatterns = [
     url(r'^l/(?P<league_slug>[a-zA-Z0-9-]+)/results$',
         results,
         name='league_results'
+        ),
+
+    url(r'^l/(?P<league_slug>[a-zA-Z0-9-]+)/versus$',
+        versus,
+        name='league_versus'
         ),
 
     url(r'^l/(?P<league_slug>[a-zA-Z0-9-]+)/tournaments$',

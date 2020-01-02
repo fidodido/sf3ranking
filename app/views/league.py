@@ -68,6 +68,37 @@ def tournaments(request, league_slug):
         'paginator': paginator
     })
 
+def versus(request, league_slug):
+
+    page = request.GET.get('page', 1)
+    league = League.objects.get(slug=league_slug)
+
+    form_new_result = ResultForm(initial={
+        'league': league.id,
+        'victory_player': 1,
+        'loser_player': 2
+    }, league=league.id)
+
+    results = Result.objects.filter(league=league).order_by('-created')
+
+    paginator = Paginator(results, PAGINATE_DEFAULT)
+
+    try:
+        results = paginator.page(page)
+    except PageNotAnInteger:
+        results = paginator.page(1)
+    except EmptyPage:
+        results = paginator.page(paginator.num_pages)
+
+    template = 'app/league/versus.html'
+
+    return render(request, template, {
+        'form_new_result': form_new_result,
+        'league': league,
+        'results': results,
+        'paginator': paginator
+    })
+
 def results(request, league_slug):
 
     page = request.GET.get('page', 1)
