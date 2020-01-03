@@ -39,22 +39,37 @@
                 <td>{{ player.played }}</td>
                 <td>
                     {% if forloop.counter is 1 %}
-                        GRAN MAESTRO
+                        <img style="width: 70px; height: 70px;" src="{{ baseUrl }}/static/app/img/range/1.png">
                     {% endif %}
                     {% if forloop.counter is 2 %}
-                        GRAN PATRIARCA
+                        <img style="width: 70px; height: 70px;" src="{{ baseUrl }}/static/app/img/range/2.png">
                     {% endif %}
                     {% if forloop.counter is 3 %}
-                        DIOS DRAGÓN
+                        <img style="width: 70px; height: 70px;" src="{{ baseUrl }}/static/app/img/range/3.png">
                     {% endif %}
                     {% if forloop.counter is 4 %}
-                        APRENDIZ DIVINO
+                        <img style="width: 70px; height: 70px;" src="{{ baseUrl }}/static/app/img/range/4.png">
                     {% endif %}
                     {% if forloop.counter is 5 %}
-                        EL TALENTOSO
+                        <img style="width: 70px; height: 70px;" src="{{ baseUrl }}/static/app/img/range/5.png">
                     {% endif %}
-                    {% if forloop.counter > 5 %}
-                        CHIC@ NORMAL
+                    {% if forloop.counter is 6 %}
+                        <img style="width: 70px; height: 70px;" src="{{ baseUrl }}/static/app/img/range/6.png">
+                    {% endif %}
+                    {% if forloop.counter is 7 %}
+                        <img style="width: 70px; height: 70px;" src="{{ baseUrl }}/static/app/img/range/7.png">
+                    {% endif %}
+                    {% if forloop.counter is 8 %}
+                        <img style="width: 70px; height: 70px;" src="{{ baseUrl }}/static/app/img/range/8.png">       
+                    {% endif %}
+                    {% if forloop.counter is 9 %}
+                        <img style="width: 70px; height: 70px;" src="{{ baseUrl }}/static/app/img/range/9.png">
+                    {% endif %}           
+                    {% if forloop.counter is 10 %}
+                        <img style="width: 70px; height: 70px;" src="{{ baseUrl }}/static/app/img/range/10.png">
+                    {% endif %}                                                                                    
+                    {% if forloop.counter > 10 %}
+                        DISCIPULO
                     {% endif %}
                 </td>
                 <td>
