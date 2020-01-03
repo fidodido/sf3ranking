@@ -72,7 +72,7 @@ def versus(request, league_slug):
 
     page = request.GET.get('page', 1)
     league = League.objects.get(slug=league_slug)
-    form = VersusForm(initial={})
+    form = VersusForm(league_id=league.id)
     template = 'app/league/versus.html'
     is_post = False
     player1 = None
@@ -81,7 +81,7 @@ def versus(request, league_slug):
     victory_player_2 = None
 
     if request.method == 'POST':
-        form = VersusForm(request.POST)
+        form = VersusForm(request.POST, league_id=league.id)
         player1 = Player.objects.get(pk=form.data['player1'])
         player2 = Player.objects.get(pk=form.data['player2'])
         victory_player_1 = Result.objects.filter(victory_player=player1, loser_player=player2, league=league).count()

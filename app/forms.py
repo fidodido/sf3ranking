@@ -11,9 +11,15 @@ class AuthForm(forms.Form):
         widget=forms.TextInput(attrs={'class': 'login-input form-control'}))
 
 class VersusForm(forms.Form):
-    player1 = forms.ModelChoiceField(required=False, queryset=Player.objects.all(), empty_label="Seleccione player", widget=forms.Select(attrs={'class': 'form-control'}))
-    player2 = forms.ModelChoiceField(required=False, queryset=Player.objects.all(), empty_label="Seleccione player", widget=forms.Select(attrs={'class': 'form-control'}))
 
+    def __init__(self,*args,**kwargs):
+        self.league_id = kwargs.pop('league_id')
+        print(self.league_id)
+        super(VersusForm,self).__init__(*args,**kwargs)
+
+        self.fields['player1'] = forms.ModelChoiceField(required=False, queryset=Player.objects.filter(league__id=self.league_id), empty_label="Seleccione player", widget=forms.Select(attrs={'class': 'form-control'}))
+        self.fields['player2'] = forms.ModelChoiceField(required=False, queryset=Player.objects.filter(league__id=self.league_id), empty_label="Seleccione player", widget=forms.Select(attrs={'class': 'form-control'}))
+        
 class LeagueForm(ModelForm):
     class Meta:
         model = League
