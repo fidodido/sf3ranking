@@ -26,20 +26,20 @@
 		<div class="col-md-2" style="text-align: center">
 			<img class="rounded-circle" style="width: 100px; height: 100px;"
                      src="{{ baseUrl }}/static/app/img/chars/{{ league.game.url_image }}/{{ player1.main.url_image }}">			
-			<h1>{{ player1.nickname }}</h1>
-			<h3>Victorias</h3>
+			<h1><span class="badge badge-danger">{{ player1.nickname }}</span></h1>
+			<h4>Victorias</h4>
 			<span class="badge badge-info" style="padding: 5px; width: 50px"><h1>{{ victory_player_1 }}</h1></span>
 			
 		</div>
 		<div class="col-md-1">
-				<img class="rounded-circle" style="width: 50px; height: 50px; text-align: center"
+				<img class="rounded-circle" style="width: 50px; height: 50px; margin-top: 50px; text-align: center"
                      src="{{ baseUrl }}/static/app/img/versus.png">				
 		</div>
 		<div class="col-md-2" style="text-align: center">
 			<img class="rounded-circle" style="width: 100px; height: 100px;"
                      src="{{ baseUrl }}/static/app/img/chars/{{ league.game.url_image }}/{{ player2.main.url_image }}">			
-			<h1>{{ player2.nickname }}</h1>
-			<h3>Victorias</h3>
+			<h1><span class="badge badge-danger">{{ player2.nickname }}</span></h1>
+			<h4>Victorias</h4>
 			<span class="badge badge-info" style="padding: 5px; width: 50px"><h1>{{ victory_player_2 }}</h1></span>
 		</div>
 	</div>
