@@ -4,15 +4,15 @@ from app.models import *
 from django.utils.text import slugify
 
 
-
-
-
 class AuthForm(forms.Form):
     username = forms.CharField(
         widget=forms.TextInput(attrs={'class': 'login-input form-control'}))
     password = forms.CharField(
         widget=forms.TextInput(attrs={'class': 'login-input form-control'}))
 
+class VersusForm(forms.Form):
+    player1 = forms.ModelChoiceField(required=False, queryset=Player.objects.all(), empty_label="Seleccione player", widget=forms.Select(attrs={'class': 'form-control'}))
+    player2 = forms.ModelChoiceField(required=False, queryset=Player.objects.all(), empty_label="Seleccione player", widget=forms.Select(attrs={'class': 'form-control'}))
 
 class LeagueForm(ModelForm):
     class Meta:

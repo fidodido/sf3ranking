@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from django.shortcuts import render, redirect
 from app.models import Char, Result, Player, League, Tournament
-from app.forms import ResultForm, PlayerForm, LeagueForm, TournamentForm
+from app.forms import ResultForm, PlayerForm, LeagueForm, TournamentForm, VersusForm
 from django.contrib import messages
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from app.util import elo_adapted
@@ -72,31 +72,30 @@ def versus(request, league_slug):
 
     page = request.GET.get('page', 1)
     league = League.objects.get(slug=league_slug)
-
-    form_new_result = ResultForm(initial={
-        'league': league.id,
-        'victory_player': 1,
-        'loser_player': 2
-    }, league=league.id)
-
-    results = Result.objects.filter(league=league).order_by('-created')
-
-    paginator = Paginator(results, PAGINATE_DEFAULT)
-
-    try:
-        results = paginator.page(page)
-    except PageNotAnInteger:
-        results = paginator.page(1)
-    except EmptyPage:
-        results = paginator.page(paginator.num_pages)
-
+    form = VersusForm(initial={})
     template = 'app/league/versus.html'
+    is_post = False
+    player1 = None
+    player2 = None
+    victory_player_1 = None
+    victory_player_2 = None
+
+    if request.method == 'POST':
+        form = VersusForm(request.POST)
+        player1 = Player.objects.get(pk=form.data['player1'])
+        player2 = Player.objects.get(pk=form.data['player2'])
+        victory_player_1 = Result.objects.filter(victory_player=player1, loser_player=player2, league=league).count()
+        victory_player_2 = Result.objects.filter(victory_player=player2, loser_player=player1, league=league).count()
+        is_post = True
 
     return render(request, template, {
-        'form_new_result': form_new_result,
-        'league': league,
-        'results': results,
-        'paginator': paginator
+        'form': form,
+        'victory_player_1': victory_player_1,
+        'victory_player_2': victory_player_2,
+        'player1': player1,
+        'player2': player2,
+        'is_post': is_post,
+        'league': league
     })
 
 def results(request, league_slug):

@@ -1,8 +1,49 @@
 {% extends "app/league/layout.html" %} {% block content_project %} {% load staticfiles i18n %}
 
+	<form method="POST">
+
+		{% csrf_token %}
+
+		<div class="row" style="text-align: center">
+
+		    <div class="form-group col-md-3">
+		    	{{ form.player1 }}
+		    </div>
+			<div class="form-group col-md-3">
+		    	{{ form.player2 }}
+		    </div>
+		    <div class="form-group">
+				<button class="btn btn-success">Ver estadística</button>    	
+		    </div>
+		 </div>	    
 
 
-    <hr>
+	</form>
+	<hr>
+
+	{% if is_post %}
+	<div class="row">
+		<div class="col-md-2" style="text-align: center">
+			<img class="rounded-circle" style="width: 100px; height: 100px;"
+                     src="{{ baseUrl }}/static/app/img/chars/{{ league.game.url_image }}/{{ player1.main.url_image }}">			
+			<h1>{{ player1.nickname }}</h1>
+			<h3>Victorias</h3>
+			<span class="badge badge-info" style="padding: 5px; width: 50px"><h1>{{ victory_player_1 }}</h1></span>
+			
+		</div>
+		<div class="col-md-1">
+				<img class="rounded-circle" style="width: 50px; height: 50px; text-align: center"
+                     src="{{ baseUrl }}/static/app/img/versus.png">				
+		</div>
+		<div class="col-md-2" style="text-align: center">
+			<img class="rounded-circle" style="width: 100px; height: 100px;"
+                     src="{{ baseUrl }}/static/app/img/chars/{{ league.game.url_image }}/{{ player2.main.url_image }}">			
+			<h1>{{ player2.nickname }}</h1>
+			<h3>Victorias</h3>
+			<span class="badge badge-info" style="padding: 5px; width: 50px"><h1>{{ victory_player_2 }}</h1></span>
+		</div>
+	</div>
+	{% endif %}
 
     
 {% endblock %}
