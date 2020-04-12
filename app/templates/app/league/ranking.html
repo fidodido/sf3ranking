@@ -31,7 +31,44 @@
                              src="{{ baseUrl }}/static/app/img/chars/{{ league.game.url_image }}/{{ player.main.url_image }}">
                         <img style="width: 25px; height: 25px;"
                              src="{{ baseUrl }}/static/app/img/flags/{{ player.country.url_image }}">
-                        {{ player.nickname }}</a>
+                        {{ player.nickname }}
+                        {% if forloop.counter is 1 %}
+                           de Géminis
+                        {% endif %}
+                        {% if forloop.counter is 2 %}
+                            de Virgo
+                        {% endif %}
+                        {% if forloop.counter is 3 %}
+                            de Libra
+                        {% endif %}
+                        {% if forloop.counter is 4 %}
+                            de Aries
+                        {% endif %}
+                        {% if forloop.counter is 5 %}
+                            de Sagitario
+                        {% endif %}
+                        {% if forloop.counter is 6 %}
+                            de Leo
+                        {% endif %}
+                        {% if forloop.counter is 7 %}
+                            de Capricornio
+                        {% endif %}
+                        {% if forloop.counter is 8 %}
+                            de Acuario
+                        {% endif %}
+                        {% if forloop.counter is 9 %}
+                            de Escorpión
+                        {% endif %}           
+                        {% if forloop.counter is 10 %}
+                            de Tauro
+                        {% endif %}       
+                        {% if forloop.counter is 11 %}
+                            de Cancer
+                        {% endif %}        
+                        {% if forloop.counter is 12 %}
+                            de Piscis
+                        {% endif %}                                                                        
+                    </a>
                 </td>
                 <td>{{ player.ranking|floatformat }}</td>
                 <td>{{ player.victories }}</td>
