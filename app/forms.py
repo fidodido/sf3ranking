@@ -24,8 +24,8 @@ class LeagueForm(ModelForm):
     class Meta:
         model = League
         labels = {
-            'title': 'Título',
-            'game': 'Juego'
+            'title': 'Nombre de la liga',
+            'game': 'Selecciona el juego'
         }
         fields = ['title', 'game', 'user']
         widgets = {
