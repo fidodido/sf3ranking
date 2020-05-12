@@ -22,15 +22,6 @@
                                              href="{{ request.path }}?page={{ results.previous_page_number }}">Anterior</a>
                     </li>
                 {% endif %}
-                {% for i in results.paginator.page_range %}
-                    {% if results.number == i %}
-                        <li class="page-item active"><span class="page-link">{{ i }} <span
-                                class="sr-only">(current)</span></span></li>
-                    {% else %}
-                        <li class="page-item"><a class="page-link" data-page="{{ i }}"
-                                                 href="{{ request.path }}?page={{ i }}">{{ i }}</a></li>
-                    {% endif %}
-                {% endfor %}
                 {% if results.has_next %}
                     <li class="page-item"><a class="page-link" data-page="{{ results.next_page_number }}"
                                              class="change-page" data-page="{{ results.next_page_number }}"
