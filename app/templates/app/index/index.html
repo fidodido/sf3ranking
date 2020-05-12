@@ -1,7 +1,14 @@
 {% extends "app/layout.html" %} {% block content %} {% load staticfiles i18n %}
 
+
 <div style="text-align: center">
-    <h4>Hola, ¿Eres un organizador de ligas de juegos retro?, Crea tu propio ranking para tu liga de tu juego favorito!</h4>
+    <img title="Entrar a la liga" style="width: 50%; height: 50%;" src="{{ baseUrl }}static/app/img/ryuiori.png">
+    <h4>¿Eres un organizador de ligas de juegos retro?, Crea tu propio ranking para tu liga de tu juego favorito!</h4>
+    <p>
+        <span>- Sistema de ranking ELO (sistema que usa el ajedrez).</span><br>
+        <span>- Torneos y desafios personales "First to Win".</span><br>
+        <span>- Sistema de rangos de los caballeros del zodiaco!.</span><br>
+    </p>
 <a href="{% url 'signup' %}" data-toggle="tooltip" data-placement="bottom" title="Registrarse" class="btn btn-danger my-2 my-sm-0" type="submit">Regístrate y crea tu liga totalmente gratis!</a>
 <hr>
 
@@ -23,13 +30,18 @@
             {% for league in leagues %}
             <div class="col-md-2">
                 <div class="card" style="margin-bottom: 15px; text-align: center; background: #222">
-                     <h7 class="card-header text-light"><a href="<a href="{% url 'league_index' league.slug %}">{{ league.title }}</a></h7>
-                    <div class="card-body">
+                     <h7 class="card-header  text-light">
+                        <a href="<a href="{% url 'league_index' league.slug %}">{{ league.title }}</a>
+                        
+                    </h7>
+                    <div class="card-body" style="position: relative">
+                        <div class="" style="position: absolute; bottom: 5px; right: 5px"><span class="badge badge-primary">+ {{ league.results }} partidas jugadas!</span></div>
+                        <div class="" style="position: absolute; bottom: 25px; right: 5px"><span class="badge badge-primary">Fundada por {{ league.user.username}}</span></div>
                         <a href="{% url 'league_index' league.slug %}">
                         <img title="Entrar a la liga" style="width: 100%; height: 120px;" src="{{ baseUrl }}static/app/img/games/{{ league.game.url_image }}.png">
                         </a>
                     </div>
-                    <h7 class="card-footer text-light"><span class="badge badge-info">{{ league.results }}</span> matches </h7>
+
                 </div>
             </div>
             {% endfor %}
