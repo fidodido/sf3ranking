@@ -20,7 +20,6 @@
             <th>Derrotas</th>
             <th>Jugadas</th>
             <th>Título</th>
-            <th>Grado</th>
         </tr>
         {% for player in players %}
             <tr>
@@ -33,41 +32,45 @@
                              src="{{ baseUrl }}/static/app/img/flags/{{ player.country.url_image }}">
                         {{ player.nickname }}
                         {% if forloop.counter is 1 %}
+                            Patriarca
+                        {% endif %}     
+                        {% if forloop.counter is 2 %}
                            de Géminis
                         {% endif %}
-                        {% if forloop.counter is 2 %}
+                        {% if forloop.counter is 3 %}
                             de Virgo
                         {% endif %}
-                        {% if forloop.counter is 3 %}
+                        {% if forloop.counter is 4 %}
                             de Libra
                         {% endif %}
-                        {% if forloop.counter is 4 %}
+                        {% if forloop.counter is 5 %}
                             de Aries
                         {% endif %}
-                        {% if forloop.counter is 5 %}
+                        {% if forloop.counter is 6 %}
                             de Sagitario
                         {% endif %}
-                        {% if forloop.counter is 6 %}
+                        {% if forloop.counter is 7 %}
                             de Leo
                         {% endif %}
-                        {% if forloop.counter is 7 %}
+                        {% if forloop.counter is 8 %}
                             de Capricornio
                         {% endif %}
-                        {% if forloop.counter is 8 %}
+                        {% if forloop.counter is 9 %}
                             de Acuario
                         {% endif %}
-                        {% if forloop.counter is 9 %}
+                        {% if forloop.counter is 10 %}
                             de Escorpión
                         {% endif %}           
-                        {% if forloop.counter is 10 %}
+                        {% if forloop.counter is 11 %}
                             de Tauro
                         {% endif %}       
-                        {% if forloop.counter is 11 %}
+                        {% if forloop.counter is 12 %}
                             de Cancer
                         {% endif %}        
-                        {% if forloop.counter is 12 %}
+                        {% if forloop.counter is 13 %}
                             de Piscis
-                        {% endif %}                                                                        
+                        {% endif %} 
+
                     </a>
                 </td>
                 <td>{{ player.ranking|floatformat }}</td>
@@ -76,87 +79,46 @@
                 <td>{{ player.played }}</td>
                 <td>
                     {% if forloop.counter is 1 %}
+                        <img style="width: 70px; height: 70px;" src="{{ baseUrl }}/static/app/img/range/0.png">
+                    {% endif %}
+                    {% if forloop.counter is 2 %}
                         <img style="width: 70px; height: 70px;" src="{{ baseUrl }}/static/app/img/range/1.png">
                     {% endif %}
-                    {% if forloop.counter is 2 %}
+                    {% if forloop.counter is 3 %}
                         <img style="width: 70px; height: 70px;" src="{{ baseUrl }}/static/app/img/range/2.png">
                     {% endif %}
-                    {% if forloop.counter is 3 %}
+                    {% if forloop.counter is 4 %}
                         <img style="width: 70px; height: 70px;" src="{{ baseUrl }}/static/app/img/range/3.png">
                     {% endif %}
-                    {% if forloop.counter is 4 %}
+                    {% if forloop.counter is 5 %}
                         <img style="width: 70px; height: 70px;" src="{{ baseUrl }}/static/app/img/range/4.png">
                     {% endif %}
-                    {% if forloop.counter is 5 %}
+                    {% if forloop.counter is 6 %}
                         <img style="width: 70px; height: 70px;" src="{{ baseUrl }}/static/app/img/range/5.png">
                     {% endif %}
-                    {% if forloop.counter is 6 %}
+                    {% if forloop.counter is 7 %}
                         <img style="width: 70px; height: 70px;" src="{{ baseUrl }}/static/app/img/range/6.png">
                     {% endif %}
-                    {% if forloop.counter is 7 %}
+                    {% if forloop.counter is 8 %}
                         <img style="width: 70px; height: 70px;" src="{{ baseUrl }}/static/app/img/range/7.png">
                     {% endif %}
-                    {% if forloop.counter is 8 %}
+                    {% if forloop.counter is 9 %}
                         <img style="width: 70px; height: 70px;" src="{{ baseUrl }}/static/app/img/range/8.png">       
                     {% endif %}
-                    {% if forloop.counter is 9 %}
+                    {% if forloop.counter is 10 %}
                         <img style="width: 70px; height: 70px;" src="{{ baseUrl }}/static/app/img/range/9.png">
                     {% endif %}           
-                    {% if forloop.counter is 10 %}
+                    {% if forloop.counter is 11 %}
                         <img style="width: 70px; height: 70px;" src="{{ baseUrl }}/static/app/img/range/10.png">
                     {% endif %}       
-                    {% if forloop.counter is 11 %}
+                    {% if forloop.counter is 12 %}
                         <img style="width: 70px; height: 70px;" src="{{ baseUrl }}/static/app/img/range/11.png">
                     {% endif %}        
-                    {% if forloop.counter is 12 %}
+                    {% if forloop.counter is 13 %}
                         <img style="width: 70px; height: 70px;" src="{{ baseUrl }}/static/app/img/range/12.png">
                     {% endif %}                                                                        
-                    {% if forloop.counter > 12 %}
+                    {% if forloop.counter > 13 %}
                         Caballero de bronce
-                    {% endif %}
-                </td>
-                <td>
-                    {% if forloop.counter is 1 %}
-                        <img src="{{ baseUrl }}/static/app/img/ranking/MSF.png">
-                    {% endif %}
-                    {% if forloop.counter is 2 %}
-                        <img src="{{ baseUrl }}/static/app/img/ranking/XS.png">
-                    {% endif %}
-                    {% if forloop.counter is 3 %}
-                        <img src="{{ baseUrl }}/static/app/img/ranking/SS.png">
-                    {% endif %}
-                    {% if forloop.counter == 4 or forloop.counter == 5 %}
-                        <img src="{{ baseUrl }}/static/app/img/ranking/S.png">
-                    {% endif %}
-                    {% if forloop.counter >= 6 and forloop.counter <= 7 %}
-                        <img src="{{ baseUrl }}/static/app/img/ranking/A+.png">
-                    {% endif %}
-                    {% if forloop.counter >= 8 and forloop.counter <= 10 %}
-                        <img src="{{ baseUrl }}/static/app/img/ranking/A.png">
-                    {% endif %}
-                    {% if forloop.counter >= 11 and forloop.counter <= 15 %}
-                        <img src="{{ baseUrl }}/static/app/img/ranking/B+.png">
-                    {% endif %}
-                    {% if forloop.counter >= 16 and forloop.counter <= 20 %}
-                        <img src="{{ baseUrl }}/static/app/img/ranking/B.png">
-                    {% endif %}
-                    {% if forloop.counter >= 21 and forloop.counter <= 25 %}
-                        <img src="{{ baseUrl }}/static/app/img/ranking/C+.png">
-                    {% endif %}
-                    {% if forloop.counter >= 26 and forloop.counter <= 30 %}
-                        <img src="{{ baseUrl }}/static/app/img/ranking/C.png">
-                    {% endif %}
-                    {% if forloop.counter >= 31 and forloop.counter <= 35 %}
-                        <img src="{{ baseUrl }}/static/app/img/ranking/D+.png">
-                    {% endif %}
-                    {% if forloop.counter >= 36 and forloop.counter <= 40 %}
-                        <img src="{{ baseUrl }}/static/app/img/ranking/D.png">
-                    {% endif %}
-                    {% if forloop.counter >= 41 and forloop.counter <= 45 %}
-                        <img src="{{ baseUrl }}/static/app/img/ranking/E+.png">
-                    {% endif %}
-                    {% if forloop.counter >= 46 %}
-                        <img src="{{ baseUrl }}/static/app/img/ranking/E.png">
                     {% endif %}
                 </td>
             </tr>

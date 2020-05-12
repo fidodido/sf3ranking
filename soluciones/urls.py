@@ -18,7 +18,6 @@ from django.urls import path
 from django.conf.urls import url
 import debug_toolbar
 from django.urls import include, path
-from rest_framework import routers
 
 # Routers provide an easy way of automatically determining the URL conf.
 
