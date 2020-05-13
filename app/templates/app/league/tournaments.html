@@ -1,5 +1,5 @@
 {% extends "app/league/layout.html" %} {% block content_project %} {% load staticfiles i18n %}
-    {% static "" as baseUrl %}
+
 
 
     <div class="clearfix">
@@ -20,7 +20,7 @@
         {% for tournament in tournaments %}
             <tr>
                 <td>{{ tournament.name }}</td>
-                <td>--</td>
+                <td><img style="" src="{{ baseUrl }}/static/app/img/cup.png"> {{ tournament.champion.nickname }}</td>
             </tr>
         {% endfor %}        
     </table>

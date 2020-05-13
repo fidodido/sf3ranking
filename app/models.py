@@ -72,6 +72,9 @@ class Player(models.Model):
     def played(self):
         return self.loses() + self.victories()
 
+    def champions(self):
+        return Tournament.objects.filter(champion=self).count()        
+
     def __str__(self):
         return self.nickname
 

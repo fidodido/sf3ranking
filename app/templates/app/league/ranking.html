@@ -70,8 +70,13 @@
                         {% if forloop.counter is 13 %}
                             de Piscis
                         {% endif %} 
-
                     </a>
+                        {% with ''|center:player.champions as range %}
+                        <br>
+                        {% for _ in range %}
+                            <img style="" src="{{ baseUrl }}/static/app/img/cup.png">
+                        {% endfor %}
+                        {% endwith %}
                 </td>
                 <td>{{ player.ranking|floatformat }}</td>
                 <td>{{ player.victories }}</td>

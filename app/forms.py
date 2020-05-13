@@ -107,8 +107,9 @@ class TournamentForm(ModelForm):
         labels = {
             'name': 'Nombre'
         }
-        fields = ['name', 'league']
+        fields = ['name', 'league', 'champion']
         widgets = {
             'league': forms.HiddenInput(),
-            'name': forms.TextInput(attrs={'class': 'form-control'})
+            'name': forms.TextInput(attrs={'class': 'form-control'}),
+            'champion': forms.Select(attrs={'class': 'form-control'}),
         }
