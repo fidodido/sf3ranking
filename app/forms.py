@@ -17,8 +17,8 @@ class VersusForm(forms.Form):
         print(self.league_id)
         super(VersusForm,self).__init__(*args,**kwargs)
 
-        self.fields['player1'] = forms.ModelChoiceField(required=False, queryset=Player.objects.filter(league__id=self.league_id), empty_label="Seleccione player", widget=forms.Select(attrs={'class': 'form-control'}))
-        self.fields['player2'] = forms.ModelChoiceField(required=False, queryset=Player.objects.filter(league__id=self.league_id), empty_label="Seleccione player", widget=forms.Select(attrs={'class': 'form-control'}))
+        self.fields['player1'] = forms.ModelChoiceField(required=False, queryset=Player.objects.filter(league__id=self.league_id).order_by('nickname'), empty_label="Seleccione player", widget=forms.Select(attrs={'class': 'form-control'}))
+        self.fields['player2'] = forms.ModelChoiceField(required=False, queryset=Player.objects.filter(league__id=self.league_id).order_by('nickname'), empty_label="Seleccione player", widget=forms.Select(attrs={'class': 'form-control'}))
         
 class LeagueForm(ModelForm):
     class Meta:
@@ -64,7 +64,7 @@ class PlayerForm(ModelForm):
     def __init__(self, *args, **kwargs):
         game = kwargs.pop('game', None)
         super(PlayerForm, self).__init__(*args, **kwargs) 
-        self.fields['main'].queryset = Char.objects.filter(game__id=game)
+        self.fields['main'].queryset = Char.objects.filter(game__id=game).order_by('name')
 
 
 class ResultForm(ModelForm):
@@ -96,8 +96,8 @@ class ResultForm(ModelForm):
 
         league = kwargs.pop('league', None)
         super(ResultForm, self).__init__(*args, **kwargs) 
-        self.fields['challenging'].queryset = Player.objects.filter(league__id=league)
-        self.fields['rival'].queryset = Player.objects.filter(league__id=league)
+        self.fields['challenging'].queryset = Player.objects.filter(league__id=league).order_by('nickname')
+        self.fields['rival'].queryset = Player.objects.filter(league__id=league).order_by('nickname')
 
 
 class TournamentForm(ModelForm):

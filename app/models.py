@@ -81,6 +81,7 @@ class Player(models.Model):
 class Tournament(models.Model):
     name = models.CharField(max_length=255, unique=True)
     league = models.ForeignKey(League, on_delete=models.CASCADE, default=1)
+    champion = models.ForeignKey(Player, on_delete=models.CASCADE, default=1)
 
     def __str__(self):
         return self.name
