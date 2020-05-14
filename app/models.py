@@ -33,7 +33,6 @@ class League(models.Model):
     slug = models.SlugField(unique=True)
     game = models.ForeignKey(Game, on_delete=models.CASCADE, default=1)
 
-
     def results(self):
         return Result.objects.filter(league=self).count()
 
