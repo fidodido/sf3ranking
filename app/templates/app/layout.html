@@ -10,21 +10,18 @@
 
     <script async src="https://www.googletagmanager.com/gtag/js?id=UA-34983689-2"></script>
 
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'UA-34983689-2');
+    </script>
+
     <script type="text/javascript">
 
         window.baseUrl = '{{ request.get_host }}';
 
-        <!-- Global site tag (gtag.js) - Google Analytics -->
-        
-        <script>
-          window.dataLayer = window.dataLayer || [];
-          function gtag(){dataLayer.push(arguments);}
-          gtag('js', new Date());
-
-          gtag('config', 'UA-34983689-2');
-        </script>
-
-        
     </script>
     <link href="{% static "app/img/logo.png" %}" rel="shortcut icon" type="image/vnd.microsoft.icon">
     <!-- bootstrap & fontawesome -->
