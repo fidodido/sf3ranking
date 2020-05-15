@@ -133,6 +133,7 @@ def ranking(request, league_slug):
 
     league = League.objects.get(slug=league_slug)
     players = Player.objects.filter(league=league, disabled=False).order_by('-ranking')
+    players_disabled = Player.objects.filter(league=league, disabled=True).order_by('-ranking')
     template = 'app/league/ranking.html'
 
     form = PlayerForm(initial={
@@ -143,7 +144,8 @@ def ranking(request, league_slug):
     return render(request, template, {
         'form': form,
         'league': league,
-        'players': players
+        'players': players,
+        'players_disabled': players_disabled
     })
 
 def player(request, league_slug, player_id):
