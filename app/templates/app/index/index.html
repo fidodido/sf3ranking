@@ -1,8 +1,9 @@
 {% extends "app/layout.html" %} {% block content %} {% load staticfiles i18n %}
 
 
+
 <div style="text-align: center">
-    <img title="Entrar a la liga" style="width: 50%; height: 50%;" src="{{ baseUrl }}static/app/img/ryuiori.png">
+    <img title="Entrar a la liga" style="width: 400px; height: 200px;" src="{{ baseUrl }}static/app/img/ryuiori.png">
     <h4>¿Eres un organizador de ligas de juegos retro?, Crea tu propio ranking para tu liga de tu juego favorito!</h4>
     <p>
         <span>- Sistema de ranking ELO (sistema que usa el ajedrez).</span><br>
@@ -49,6 +50,13 @@
     </div>
 
 
+</div>
+
+<hr>
+<div style="text-align: center">
+    {% for game in games %}
+    <img title="{{ game.title }}" style="width: 70px; height: 70px;" src="{{ baseUrl }}static/app/img/games/{{ game.url_image }}.png">
+    {% endfor %}
 </div>
 
     <!-- Create Modal -->

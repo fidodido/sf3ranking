@@ -65,6 +65,7 @@ class PlayerForm(ModelForm):
         game = kwargs.pop('game', None)
         super(PlayerForm, self).__init__(*args, **kwargs) 
         self.fields['main'].queryset = Char.objects.filter(game__id=game).order_by('name')
+        self.fields['country'].queryset = Country.objects.all().order_by('name')
 
 
 class ResultForm(ModelForm):

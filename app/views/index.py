@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from django.shortcuts import render, redirect
-from app.models import Result, Player, League
+from app.models import Result, Player, League, Game
 from app.forms import ResultForm, LeagueForm
 from django.contrib import messages
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
@@ -20,6 +20,7 @@ SORT_VALUES = {'recientes': '-created', 'votadas': '-votes_agree'}
 
 def index(request):
 
+	games = Game.objects.all()
 	results = Result.objects.all().order_by('-created')[:10]
 	leagues = League.objects.all()
 	form = LeagueForm(initial={'user': request.user})
@@ -28,5 +29,6 @@ def index(request):
 	return render(request, template, {
 		'results': results, 	
 		'form': form,
+		'games': games,
 	    'leagues': leagues
 	})
