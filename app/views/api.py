@@ -17,9 +17,9 @@ class CharSerializer(serializers.ModelSerializer):
 
 	game = GameSerializer()
 
-    class Meta:
-        model = Char
-        fields = ('name', 'url_image', 'game')
+	class Meta:
+		model = Char
+		fields = ('name', 'url_image', 'game')
 
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
