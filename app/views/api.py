@@ -107,8 +107,8 @@ class TournamentViewSet(viewsets.ModelViewSet):
 
 # Routers provide an easy way of automatically determining the URL conf.
 router = routers.DefaultRouter()
-router.register(r'leagues', LeagueViewSet)
-router.register(r'matchs', MatchViewSet)
-router.register(r'players', PlayerViewSet)
-router.register(r'tournaments', TournamentViewSet)
+router.register(r'api/leagues', LeagueViewSet)
+router.register(r'api/matchs', MatchViewSet)
+router.register(r'api/players', PlayerViewSet)
+router.register(r'api/tournaments', TournamentViewSet)
 # Wire up our API using automatic URL routing.
