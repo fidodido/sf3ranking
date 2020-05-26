@@ -3,29 +3,28 @@ from django.contrib.auth.models import User
 from app.models import League, Game, User, Result, MatchType, Player, Char, Country, Tournament
 from rest_framework import routers, serializers, viewsets
 
+class GameSerializer(serializers.ModelSerializer):
+	class Meta:
+		model = Game
+		fields = ('title', 'url_image',)
+
 class CountrySerializer(serializers.ModelSerializer):
     class Meta:
         model = Country
         fields = ('name', 'url_image', )
 
 class CharSerializer(serializers.ModelSerializer):
+
+	game = GameSerializer()
+
     class Meta:
         model = Char
-        fields = ('name', 'url_image', )
+        fields = ('name', 'url_image', 'game')
 
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
         fields = ('username', )
-
-
-class GameSerializer(serializers.ModelSerializer):
-
-
-	class Meta:
-		model = Game
-		fields = ('title', 'url_image',)
-
 
 class PlayerSerializer(serializers.ModelSerializer):
 
