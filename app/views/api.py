@@ -49,17 +49,14 @@ class MatchTypeSerializer(serializers.ModelSerializer):
 # Serializers define the API representation.
 class LeagueSerializer(serializers.ModelSerializer):
 
+	id = serializers.ReadOnlyField()
 	game = GameSerializer()
 	user = UserSerializer()
 	
 	class Meta:
 
 		model = League
-		fields = '__all__'
-
-	def create(self, validated_data):
-		league = League.objects.create(**validated_data)
-		return league
+		fields = ('id', 'title', 'game', 'user', 'results')
 
 class MatchSerializer(serializers.ModelSerializer):
 
