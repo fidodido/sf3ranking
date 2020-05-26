@@ -22,7 +22,7 @@ from app.views.api import router
 
 
 urlpatterns = [
-    url(r'^', include(router.urls)), 
+    url(r'^api/', include(router.urls)),
     path('admin/', admin.site.urls),
     path('__debug__/', include(debug_toolbar.urls)),
     url(r'^', include('app.urls'))
