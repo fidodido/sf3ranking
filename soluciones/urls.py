@@ -18,12 +18,11 @@ from django.urls import path
 from django.conf.urls import url
 import debug_toolbar
 from django.urls import include, path
+from app.views.api import router
 
-# Routers provide an easy way of automatically determining the URL conf.
-
-# Wire up our API using automatic URL routing.
 
 urlpatterns = [
+    url(r'^', include(router.urls)), 
     path('admin/', admin.site.urls),
     path('__debug__/', include(debug_toolbar.urls)),
     url(r'^', include('app.urls'))
