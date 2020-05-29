@@ -67,6 +67,8 @@ class MatchSerializer(serializers.ModelSerializer):
 	rival = PlayerSerializer()
 	victory_player = PlayerSerializer()
 	league = LeagueSerializer()
+	ranking_del_challenging = serializers.DecimalField(decimal_places=2, max_digits=15, default=0)
+	ranking_del_rival = serializers.DecimalField(decimal_places=2, max_digits=15, default=0)
 
 	class Meta:
 		model = Result
