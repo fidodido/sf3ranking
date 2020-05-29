@@ -2,6 +2,8 @@
 from django.contrib.auth.models import User
 from app.models import League, Game, User, Result, MatchType, Player, Char, Country, Tournament
 from rest_framework import routers, serializers, viewsets
+from django.db.models.fields import DecimalField
+
 
 class GameSerializer(serializers.ModelSerializer):
 	class Meta:
@@ -31,6 +33,7 @@ class PlayerSerializer(serializers.ModelSerializer):
 	id = serializers.ReadOnlyField()
 	main = CharSerializer()
 	country = CountrySerializer()
+	ranking = serializers.DecimalField(decimal_places=2, max_digits=15, default=0)
 
 	class Meta:
 		model = Player
@@ -93,7 +96,7 @@ class MatchViewSet(viewsets.ModelViewSet):
 
 # ViewSets define the view behavior.
 class PlayerViewSet(viewsets.ModelViewSet):
-    queryset = Player.objects.all()
+    queryset = Player.objects.all().order_by('-ranking')
     serializer_class = PlayerSerializer
 
 # ViewSets define the view behavior.
@@ -104,7 +107,7 @@ class TournamentViewSet(viewsets.ModelViewSet):
 # Routers provide an easy way of automatically determining the URL conf.
 router = routers.DefaultRouter()
 router.register(r'leagues', LeagueViewSet)
-router.register(r'matchs', MatchViewSet)
+router.register(r'matches', MatchViewSet)
 router.register(r'players', PlayerViewSet)
 router.register(r'tournaments', TournamentViewSet)
 # Wire up our API using automatic URL routing.
