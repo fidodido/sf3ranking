@@ -5,6 +5,7 @@ from rest_framework import routers, serializers, viewsets
 from django.db.models.fields import DecimalField
 
 
+
 class GameSerializer(serializers.ModelSerializer):
 	class Meta:
 		model = Game
@@ -92,24 +93,58 @@ class LeagueViewSet(viewsets.ModelViewSet):
 
 # ViewSets define the view behavior.
 class MatchViewSet(viewsets.ModelViewSet):
-    queryset = Result.objects.all()
-    serializer_class = MatchSerializer
+
+	serializer_class = MatchSerializer
+
+	def get_queryset(self):
+
+		league_id = self.request.query_params.get('id')
+		queryset = Result.objects.all()
+
+		if league_id:
+			queryset = queryset.filter(league_id=league_id).order_by('-created')
+
+		return queryset
+
+	
 
 
 # ViewSets define the view behavior.
 class PlayerViewSet(viewsets.ModelViewSet):
-    queryset = Player.objects.all().order_by('-ranking')
-    serializer_class = PlayerSerializer
+
+	serializer_class = PlayerSerializer
+
+	def get_queryset(self):
+
+		league_id = self.request.query_params.get('id')
+		queryset = Player.objects.all()
+
+		if league_id:
+			queryset = queryset.filter(league=league_id, disabled=True).order_by('-ranking')
+
+		return queryset
+
 
 # ViewSets define the view behavior.
 class TournamentViewSet(viewsets.ModelViewSet):
-    queryset = Tournament.objects.all()
-    serializer_class = TournamentSerializer
+
+	serializer_class = TournamentSerializer
+
+	def get_queryset(self):
+
+		league_id = self.request.query_params.get('id')
+		queryset = Tournament.objects.all()
+
+		if league_id:
+			queryset = queryset.filter(league_id=league_id)
+
+		return queryset
+
 
 # Routers provide an easy way of automatically determining the URL conf.
 router = routers.DefaultRouter()
 router.register(r'leagues', LeagueViewSet)
-router.register(r'matches', MatchViewSet)
-router.register(r'players', PlayerViewSet)
-router.register(r'tournaments', TournamentViewSet)
+router.register(r'matches', MatchViewSet, basename='Result')
+router.register(r'players', PlayerViewSet, basename='Player')
+router.register(r'tournaments', TournamentViewSet, basename='Tournament')
 # Wire up our API using automatic URL routing.
