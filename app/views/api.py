@@ -120,7 +120,7 @@ class PlayerViewSet(viewsets.ModelViewSet):
 		queryset = Player.objects.all()
 
 		if league_id:
-			queryset = queryset.filter(league=league_id, disabled=True).order_by('-ranking')
+			queryset = queryset.filter(league=league_id, disabled=False).order_by('-ranking')
 
 		return queryset
 
