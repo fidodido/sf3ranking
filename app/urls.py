@@ -1,4 +1,6 @@
 from django.conf.urls import url
+from django.urls import path
+
 from app.views.index import index
 from app.views.league import index as league_index
 from app.views.league import create_new_player
@@ -18,10 +20,7 @@ from app.views.auth import signup
 
 urlpatterns = [
 
-    url(r'^$',
-        index,
-        name='index'
-        ),
+    path('', index, name='index'),
 
     url(r'^login/$',
         login,
