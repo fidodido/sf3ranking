@@ -2,7 +2,6 @@ from django.db import models
 from django.contrib.auth.models import User
 from django.core.validators import RegexValidator
 
-alphanumeric = RegexValidator(r'^[0-9a-zA-Z ]*$', 'Only alphanumeric characters are allowed.')
 
 
 class Country(models.Model):
@@ -32,7 +31,7 @@ class Char(models.Model):
 
 class League(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='owner_by',)
-    title = models.CharField(max_length=255, unique=True, validators=[alphanumeric])
+    title = models.CharField(max_length=255, unique=True)
     slug = models.SlugField(unique=True)
     game = models.ForeignKey(Game, on_delete=models.CASCADE, default=1)
 
